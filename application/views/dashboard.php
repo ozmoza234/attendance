@@ -90,7 +90,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title mb-4">Monthly Attendance Log</h4>
-                <canvas id="bar" height="200"></canvas>
+                <canvas id="bar" height="150"></canvas>
             </div>
         </div><!-- end card -->
     </div>
@@ -98,7 +98,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title mb-4">Today Attendance Log</h4>
-                <canvas id="pie" height="200"></canvas>
+                <canvas id="pie" height="150"></canvas>
             </div>
         </div><!-- end card -->
     </div>
@@ -121,8 +121,9 @@
                     label: 'Present Employees',
                     data: [211, 199, 220, 116, 119, 126],
                     borderWidth: 1,
-                    borderColor: '#36A2EB',
-                    backgroundColor: '#9BD0F5'
+                    // borderColor: '#36A2EB',
+                    // backgroundColor: 'rgba(255, 0, 255, 0.5)'
+                    backgroundColor: 'rgba(0, 0, 255, 0.5)'
                 }]
             },
             options: {
@@ -144,7 +145,7 @@
                     data: [220, 14],
                     borderWidth: 1,
                     borderColor: ['#36A2EB', '#FF6384'],
-                    backgroundColor: ['#9BD0F5', '#FFB1C1']
+                    backgroundColor: ['rgba(0, 0, 255, 0.5)', 'rgba(255, 0, 255, 0.5)']
                 }]
             },
             options: {
