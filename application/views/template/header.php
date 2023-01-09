@@ -38,7 +38,7 @@
                                 <img src="<?= base_url() ?>assets/images/logo-sm.png" alt="logo-sm" height="22">
                             </span>
                             <span class="logo-lg">
-                                <img src="<?= base_url() ?>assets/images/logo-dark.png" alt="logo-dark" height="20">
+                                <img src="<?= base_url() ?>assets/images/logo-dark.png" alt="logo-dark" height="20" width="150">
                             </span>
                         </a>
 
@@ -47,7 +47,7 @@
                                 <img src="<?= base_url() ?>assets/images/logo-sm.png" alt="logo-sm-light" height="22">
                             </span>
                             <span class="logo-lg">
-                                <img src="<?= base_url() ?>assets/images/logo-light.png" alt="logo-light" height="20">
+                                <img src="<?= base_url() ?>assets/images/logo-light.png" alt="logo-light" height="20" width="150">
                             </span>
                         </a>
                     </div>
@@ -78,14 +78,14 @@
                         <li class="menu-title">Menu</li>
 
                         <li>
-                            <a href="#" class="waves-effect">
+                            <a href="<?= base_url() ?>Auth" class="waves-effect">
                                 <i class="mdi mdi-view-dashboard"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
 
                         <li>
-                            <a href="#" class="waves-effect">
+                            <a href="<?= base_url() ?>Profile" class="waves-effect">
                                 <i class="mdi mdi-account"></i>
                                 <span>My Profile</span>
                             </a>
@@ -97,7 +97,7 @@
                                 <span>Master</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="#">User</a></li>
+                                <li><a href="<?= base_url() ?>User">User</a></li>
                                 <li><a href="#">Employee</a></li>
                                 <li><a href="#">Division</a></li>
                                 <!-- <li><a href="#">Work Hour</a></li> -->
@@ -105,14 +105,14 @@
                         </li>
 
                         <li>
-                            <a href="calendar.html" class=" waves-effect">
+                            <a href="#" class=" waves-effect">
                                 <i class="ri-calendar-2-line"></i>
                                 <span>Attendance</span>
                             </a>
                         </li>
 
                         <li>
-                            <a href="calendar.html" class=" waves-effect">
+                            <a href="<?= base_url() ?>" class=" waves-effect">
                                 <i class="mdi mdi-logout-variant"></i>
                                 <span>Logout</span>
                             </a>

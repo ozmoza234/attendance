@@ -1,9 +1,3 @@
-<style>
-    /* canvas {
-        width: 500px !important;
-        height: 300px !important;
-    } */
-</style>
 <!-- start page title -->
 <div class="row">
     <div class="col-12">
@@ -108,6 +102,7 @@
 
 <!-- Chart JS -->
 <script src="assets/libs/chart.js/Chart.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.0.0-rc.1/chartjs-plugin-datalabels.min.js" integrity="sha512-+UYTD5L/bU1sgAfWA0ELK5RlQ811q8wZIocqI7+K0Lhh8yVdIoAMEs96wJAIbgFvzynPm36ZCXtkydxu1cs27w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="assets/js/pages/chartjs.init.js"></script>
 
 <script>
@@ -123,7 +118,15 @@
                     borderWidth: 1,
                     // borderColor: '#36A2EB',
                     // backgroundColor: 'rgba(255, 0, 255, 0.5)'
-                    backgroundColor: 'rgba(0, 0, 255, 0.5)'
+                    backgroundColor: 'rgba(0, 0, 255, 0.5)',
+                    // datalabels: {
+                    //     anchor: 'end',
+                    //     align: 'top',
+                    //     offset: 1,
+                    //     font: {
+                    //         weight: 'bold'
+                    //     }
+                    // }
                 }]
             },
             options: {
@@ -133,6 +136,7 @@
                     }
                 },
             },
+            // plugins: [ChartDataLabels],
         });
 
         let ctxPie = document.getElementById("pie");
@@ -145,7 +149,7 @@
                     data: [220, 14],
                     borderWidth: 1,
                     borderColor: ['#36A2EB', '#FF6384'],
-                    backgroundColor: ['rgba(0, 0, 255, 0.5)', 'rgba(255, 0, 255, 0.5)']
+                    backgroundColor: ['rgba(0, 0, 255, 0.5)', 'rgba(255, 0, 255, 0.5)'],
                 }]
             },
             options: {
