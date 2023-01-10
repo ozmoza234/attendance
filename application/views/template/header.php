@@ -8,15 +8,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesdesign" name="author" />
+
     <!-- App favicon -->
     <link rel="shortcut icon" href="<?= base_url() ?>assets/images/favicon.ico">
 
     <!-- Bootstrap Css -->
-    <link href="<?= base_url() ?>assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url('assets/css/bootstrap.min.css') ?>" id="bootstrap-style" rel="stylesheet" type="text/css" media="all" />
+
     <!-- Icons Css -->
-    <link href="<?= base_url() ?>assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url('assets/css/icons.min.css') ?>" rel="stylesheet" type="text/css" media="all" />
+
     <!-- App Css-->
-    <link href="<?= base_url() ?>assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url('assets/css/app.min.css') ?>" id="app-style" rel="stylesheet" type="text/css" media="all" />
+
+    <!-- DataTables -->
+    <link href="<?= base_url() ?>assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url() ?>assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url() ?>assets/libs/datatables.net-select-bs4/css//select.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -58,11 +66,6 @@
                         <h4 class="text-center" style="margin-top: 24px;">Attendance System Company Name</h4>
                     </div>
                 </div>
-                <div class="d-flex">
-                    <button type="button" class="btn header-item noti-icon right-bar-toggle waves-effect">
-                        <i class="ri-settings-2-line"></i>
-                    </button>
-                </div>
             </div>
         </header>
 
@@ -83,36 +86,31 @@
                                 <span>Dashboard</span>
                             </a>
                         </li>
-
                         <li>
                             <a href="<?= base_url() ?>Profile" class="waves-effect">
                                 <i class="mdi mdi-account"></i>
                                 <span>My Profile</span>
                             </a>
                         </li>
-
                         <li>
                             <a href="javascript: void(0);" class="has-arrow waves-effect">
                                 <i class="mdi mdi-database"></i>
                                 <span>Master</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="<?= base_url() ?>User">User</a></li>
-                                <li><a href="#">Employee</a></li>
+                                <li><a href="<?= base_url() ?>User">Employee</a></li>
                                 <li><a href="#">Division</a></li>
                                 <!-- <li><a href="#">Work Hour</a></li> -->
                             </ul>
                         </li>
-
                         <li>
                             <a href="#" class=" waves-effect">
                                 <i class="ri-calendar-2-line"></i>
                                 <span>Attendance</span>
                             </a>
                         </li>
-
                         <li>
-                            <a href="<?= base_url() ?>" class=" waves-effect">
+                            <a href="<?= base_url() ?>" class="waves-effect">
                                 <i class="mdi mdi-logout-variant"></i>
                                 <span>Logout</span>
                             </a>
@@ -125,62 +123,19 @@
         </div>
         <!-- Left Sidebar End -->
 
-        <!-- Right Sidebar -->
-        <div class="right-bar">
-            <div data-simplebar class="h-100">
-                <div class="rightbar-title d-flex align-items-center px-3 py-4">
-                    <h5 class="m-0 me-2">Settings</h5>
-                    <a href="javascript:void(0);" class="right-bar-toggle ms-auto">
-                        <i class="mdi mdi-close noti-icon"></i>
-                    </a>
-                </div>
-                <!-- Settings -->
-                <hr class="mt-0" />
-                <h6 class="text-center mb-0">Choose Layouts</h6>
-                <div class="p-4">
-                    <div class="mb-2">
-                        <img src="<?= base_url() ?>assets/images/layouts/layout-1.jpg" class="img-fluid img-thumbnail" alt="layout-1">
-                    </div>
-                    <div class="form-check form-switch mb-3">
-                        <input class="form-check-input theme-choice" type="checkbox" id="light-mode-switch" checked>
-                        <label class="form-check-label" for="light-mode-switch">Light Mode</label>
-                    </div>
-                    <div class="mb-2">
-                        <img src="<?= base_url() ?>assets/images/layouts/layout-2.jpg" class="img-fluid img-thumbnail" alt="layout-2">
-                    </div>
-                    <div class="form-check form-switch mb-3">
-                        <input class="form-check-input theme-choice" type="checkbox" id="dark-mode-switch" data-bsStyle="<?= base_url() ?>assets/css/bootstrap-dark.min.css" data-appStyle="<?= base_url() ?>assets/css/app-dark.min.css">
-                        <label class="form-check-label" for="dark-mode-switch">Dark Mode</label>
-                    </div>
-                    <div class="mb-2">
-                        <img src="<?= base_url() ?>assets/images/layouts/layout-3.jpg" class="img-fluid img-thumbnail" alt="layout-3">
-                    </div>
-                    <div class="form-check form-switch mb-5">
-                        <input class="form-check-input theme-choice" type="checkbox" id="rtl-mode-switch" data-appStyle="<?= base_url() ?>assets/css/app-rtl.min.css">
-                        <label class="form-check-label" for="rtl-mode-switch">RTL Mode</label>
-                    </div>
-                </div>
-            </div> <!-- end slimscroll-menu-->
-        </div>
-        <!-- /Right-bar -->
-
-        <!-- Right bar overlay-->
-        <div class="rightbar-overlay"></div>
-
         <!-- JAVASCRIPT -->
         <script src="<?= base_url() ?>assets/libs/jquery/jquery.min.js"></script>
         <script src="<?= base_url() ?>assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="<?= base_url() ?>assets/libs/metismenu/metisMenu.min.js"></script>
-        <script src="<?= base_url() ?>assets/libs/simplebar/simplebar.min.js"></script>
-        <script src="<?= base_url() ?>assets/libs/node-waves/waves.min.js"></script>
-
-
-        <!-- apexcharts -->
-        <script src="<?= base_url() ?>assets/libs/apexcharts/apexcharts.min.js"></script>
 
         <!-- App js -->
         <script src="<?= base_url() ?>assets/js/app.js"></script>
 
+        <!-- Data Tables -->
+        <script src="<?= base_url() ?>assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+        <script src="<?= base_url() ?>assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+
+        <!-- Datatable init js -->
+        <script src="<?= base_url() ?>assets/js/pages/datatables.init.js"></script>
 
         <!-- ============================================================== -->
         <!-- Start right Content here -->
