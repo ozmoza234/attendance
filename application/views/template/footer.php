@@ -4,11 +4,11 @@
             <div class="col-sm-6">
                 <script>
                     document.write(new Date().getFullYear())
-                </script> © Company name.
+                </script> © PT. Rehobat Sringin.
             </div>
             <div class="col-sm-6">
                 <div class="text-sm-end d-none d-sm-block">
-                    Made with <i class="mdi mdi-heart text-danger"></i> by Division name
+                    Made with <i class="mdi mdi-heart text-danger"></i> for better exp.
                 </div>
             </div>
         </div>

@@ -27,6 +27,12 @@
             <div class="card-body">
                 <h4 class="card-title">User Profile</h4>
                 <div class="row mb-3">
+                    <label for="example-text-input" class="col-sm-2 col-form-label">Employee ID</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" type="text" placeholder="e.g. 221100103" id="example-text-input">
+                    </div>
+                </div>
+                <div class="row mb-3">
                     <label for="example-text-input" class="col-sm-2 col-form-label">Full Name</label>
                     <div class="col-sm-10">
                         <input class="form-control" type="text" placeholder="e.g. Adrian Hadinata" id="example-text-input">
@@ -46,6 +52,15 @@
                         <input class="form-control" type="tel" placeholder="e.g. 085802520642" id="example-tel-input">
                     </div>
                 </div>
+                <!-- end row -->
+                <div class="row mb-3">
+                    <label for="example-tel-input" class="col-sm-2 col-form-label">Bank Account Number</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" type="tel" placeholder="e.g. 0301245211" id="example-tel-input">
+                    </div>
+                </div>
+                <!-- end row -->
+
             </div>
         </div>
     </div>

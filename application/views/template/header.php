@@ -43,10 +43,10 @@
                     <div class="navbar-brand-box">
                         <a href="index.html" class="logo logo-dark">
                             <span class="logo-sm">
-                                <img src="<?= base_url() ?>assets/images/logo-sm.png" alt="logo-sm" height="22">
+                                <img src="<?= base_url() ?>assets/images/logo-sm-rhb.png" alt="logo-sm" height="15">
                             </span>
                             <span class="logo-lg">
-                                <img src="<?= base_url() ?>assets/images/logo-dark.png" alt="logo-dark" height="20" width="150">
+                                <img src="<?= base_url() ?>assets/images/logo-lg-rhb.png" alt="logo-dark" height="20" width="115">
                             </span>
                         </a>
 
@@ -55,7 +55,7 @@
                                 <img src="<?= base_url() ?>assets/images/logo-sm.png" alt="logo-sm-light" height="22">
                             </span>
                             <span class="logo-lg">
-                                <img src="<?= base_url() ?>assets/images/logo-light.png" alt="logo-light" height="20" width="150">
+                                <img src="<?= base_url() ?>assets/images/logo-light.png" alt="logo-light" height="20" width="115">
                             </span>
                         </a>
                     </div>
@@ -63,84 +63,138 @@
                         <i class="ri-menu-2-line align-middle"></i>
                     </button>
                     <div class="dropdown d-inline-block">
-                        <h4 class="text-center" style="margin-top: 24px;">Attendance System Company Name</h4>
+                        <h5 class="text-center" style="margin-top: 24px;">Payroll Management System</h5>
                     </div>
                 </div>
             </div>
-        </header>
+    </div>
+    </header>
 
-        <!-- ========== Left Sidebar Start ========== -->
-        <div class="vertical-menu">
+    <!-- ========== Left Sidebar Start ========== -->
+    <div class="vertical-menu">
 
-            <div data-simplebar class="h-100">
+        <div data-simplebar class="h-100">
 
-                <!--- Sidemenu -->
-                <div id="sidebar-menu">
-                    <!-- Left Menu Start -->
-                    <ul class="metismenu list-unstyled" id="side-menu">
-                        <li class="menu-title">Menu</li>
+            <!--- Sidemenu -->
+            <div id="sidebar-menu">
+                <!-- Left Menu Start -->
+                <ul class="metismenu list-unstyled" id="side-menu">
+                    <li class="menu-title">Menu</li>
 
-                        <li>
-                            <a href="<?= base_url() ?>Auth" class="waves-effect">
-                                <i class="mdi mdi-view-dashboard"></i>
-                                <span>Dashboard</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= base_url() ?>Profile" class="waves-effect">
-                                <i class="mdi mdi-account"></i>
-                                <span>My Profile</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                <i class="mdi mdi-database"></i>
-                                <span>Master</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="<?= base_url() ?>User">Employee</a></li>
-                                <li><a href="#">Division</a></li>
-                                <!-- <li><a href="#">Work Hour</a></li> -->
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#" class=" waves-effect">
-                                <i class="ri-calendar-2-line"></i>
-                                <span>Attendance</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= base_url() ?>" class="waves-effect">
-                                <i class="mdi mdi-logout-variant"></i>
-                                <span>Logout</span>
-                            </a>
-                        </li>
+                    <li>
+                        <a href="<?= base_url() ?>Auth/dashboard" class="waves-effect">
+                            <i class="mdi mdi-view-dashboard"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="mdi mdi-database-outline"></i>
+                            <span>Human Resources</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="<?= base_url() ?>User">User</a></li>
+                            <li><a href="<?= base_url() ?>Employee">Employee</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="ri-calendar-2-line"></i>
+                            <span>Attendance</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li>
+                                <a href="#" id='attBtn'>
+                                    <span>Device Log</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">Employee Log</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="mdi mdi-currency-usd"></i>
+                            <span>Accounting</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li>
+                                <a href="#">
+                                    <span>UMP</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">Salary Employee</a>
+                            </li>
+                            <li>
+                                <a href="#">Report</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="waves-effect">
+                            <i class="mdi mdi-notebook-edit-outline"></i>
+                            <span>SPL</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= base_url() ?>Auth/destroy" class="waves-effect">
+                            <i class="mdi mdi-logout-variant"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
 
-                    </ul>
-                </div>
-                <!-- Sidebar -->
+                </ul>
             </div>
+            <!-- Sidebar -->
         </div>
-        <!-- Left Sidebar End -->
+    </div>
 
-        <!-- JAVASCRIPT -->
-        <script src="<?= base_url() ?>assets/libs/jquery/jquery.min.js"></script>
-        <script src="<?= base_url() ?>assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- JAVASCRIPT -->
+    <script src="<?= base_url() ?>assets/libs/jquery/jquery.min.js"></script>
+    <script src="<?= base_url() ?>assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-        <!-- App js -->
-        <script src="<?= base_url() ?>assets/js/app.js"></script>
+    <script src="<?= base_url() ?>assets/libs/metismenu/metisMenu.min.js"></script>
+    <script src="<?= base_url() ?>assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="<?= base_url() ?>assets/libs/node-waves/waves.min.js"></script>
 
-        <!-- Data Tables -->
-        <script src="<?= base_url() ?>assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
-        <script src="<?= base_url() ?>assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <!-- App js -->
+    <script src="<?= base_url() ?>assets/js/app.js"></script>
 
-        <!-- Datatable init js -->
-        <script src="<?= base_url() ?>assets/js/pages/datatables.init.js"></script>
+    <!-- Data Tables -->
+    <script src="<?= base_url() ?>assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="<?= base_url() ?>assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
 
-        <!-- ============================================================== -->
-        <!-- Start right Content here -->
-        <!-- ============================================================== -->
-        <div class="main-content">
+    <!-- Swall Fire -->
+    <script src="<?= base_url() ?>assets/js/sweetalert2.all.min.js"></script>
 
-            <div class="page-content">
-                <div class="container-fluid">
+    <!-- Custom Scripts -->
+    <script>
+        $(document).ready(function() {
+            $('#attBtn').on('click', function() {
+                Swal.fire({
+                    title: 'Warning!',
+                    text: "Accessing this menu will cause lagging because of large data load. Is this okay?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes!',
+                    cancelButtonText: "No!",
+                }).then(function(result) {
+                    if (result.value) {
+                        window.open('<?= base_url('Attendance') ?>', '_self');
+                    }
+                })
+            })
+        })
+    </script>
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
+
+        <div class="page-content">
+            <div class="container-fluid">
