@@ -109,7 +109,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#">Employee Log</a>
+                                <a href="<?= base_url('Attendance/indexE') ?>">Employee Log</a>
                             </li>
                         </ul>
                     </li>
@@ -120,7 +120,7 @@
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
                             <li>
-                                <a href="#">
+                                <a href="<?= base_url('Ump') ?>">
                                     <span>UMP</span>
                                 </a>
                             </li>
@@ -133,10 +133,20 @@
                         </ul>
                     </li>
                     <li>
-                        <a class="waves-effect">
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class="mdi mdi-notebook-edit-outline"></i>
                             <span>SPL</span>
                         </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li>
+                                <a href="#" id='attBtn'>
+                                    <span>Form</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">Approval</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="<?= base_url() ?>Auth/destroy" class="waves-effect">

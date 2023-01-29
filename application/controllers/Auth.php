@@ -8,10 +8,6 @@ class Auth extends CI_Controller
         parent::__construct();
         $this->load->model('Auth_m');
         $this->load->library('form_validation');
-        // if (!$this->session->userdata('username')) {
-        //     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Please do Login First!</div>');
-        //     redirect('Auth');
-        // }
     }
 
     public function index()
