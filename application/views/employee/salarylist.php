@@ -62,6 +62,52 @@
                                 <input type="text" readonly class="form-control" name="title" id="title">
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12" style="margin-top: 20px;">
+                                <h4 class="mb-sm-0">Allowance</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label for="pay">Salary: </label>
+                                <input type="text" class="form-control" name="pay" id="pay" readonly>
+                            </div>
+                            <div class="col-lg-3">
+                                <label for="skill">Skills: </label>
+                                <input type="text" readonly class="form-control" name="skill" id="skill">
+                            </div>
+                            <div class="col-lg-3">
+                                <label for="service">Service: </label>
+                                <input type="text" readonly class="form-control" name="service" id="service">
+                            </div>
+                            <div class="col-lg-3">
+                                <label for="etc1">Etc: </label>
+                                <input type="text" readonly class="form-control" name="etc1" id="etc1">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" style="margin-top: 20px;">
+                                <h4 class="mb-sm-0">Deductions</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label for="koperasi">Coperation: </label>
+                                <input type="text" class="form-control" name="koperasi" id="koperasi" readonly>
+                            </div>
+                            <div class="col-lg-3">
+                                <label for="bpjs">BPJS: </label>
+                                <input type="text" readonly class="form-control" name="bpjs" id="bpjs">
+                            </div>
+                            <div class="col-lg-3">
+                                <label for="bpjstk">BPJS Tk: </label>
+                                <input type="text" readonly class="form-control" name="bpjstk" id="bpjstk">
+                            </div>
+                            <div class="col-lg-3">
+                                <label for="etc2">Etc: </label>
+                                <input type="text" readonly class="form-control" name="etc2" id="etc2">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -135,12 +181,27 @@
             let salary = tableUser.row($(this).parents('tr')).data().Salary;
             let skills = tableUser.row($(this).parents('tr')).data().Allw_Keterampilan;
             let post = tableUser.row($(this).parents('tr')).data().Allw_Jabatan;
-            let services = tableUser.row($(this).parents('tr')).data().Allw_MasaKerja;
+            let pay = tableUser.row($(this).parents('tr')).data().Salary;
+            let skill = tableUser.row($(this).parents('tr')).data().Allw_Keterampilan;
+            let service = tableUser.row($(this).parents('tr')).data().Allw_MasaKerja;
+            let etc1 = tableUser.row($(this).parents('tr')).data().Allw_Dll;
+            let koperasi = tableUser.row($(this).parents('tr')).data().Pot_Koperasi;
+            let bpjs = tableUser.row($(this).parents('tr')).data().Pot_Bpjs;
+            let bpjstk = tableUser.row($(this).parents('tr')).data().Pot_Bpjs_TK;
+            let etc2 = tableUser.row($(this).parents('tr')).data().Pot_Dll;
 
             $('#nik').val(nik);
             $('#title').val(title);
             $('#department').val(dept);
             $('#pos').val(position);
+            $('#pay').val(pay);
+            $('#skill').val(skill);
+            $('#service').val(service);
+            $('#etc1').val(etc1);
+            $('#koperasi').val(koperasi);
+            $('#bpjs').val(bpjs);
+            $('#bpjstk').val(bpjstk);
+            $('#etc2').val(etc2);
 
             $('#modal_edit_title').text('Details of ' + ename)
             $('#modal_edit').appendTo("body").modal("show");
