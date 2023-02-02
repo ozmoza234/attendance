@@ -49,4 +49,38 @@ class Employee_m extends ci_model
         $query = $this->db->query($data);
         return $query->result();
     }
+
+    public function load_sedata()
+    {
+        $data = "SELECT
+        emp0003.EmployeeID,
+        emp0003.NIK,
+        emp0003.`Name` AS ename,
+        emp0001.DepartmentDesc AS d,
+        emp0002.PositionDesc AS p,
+        emp0025.TitleDesc AS t,
+        emp0003.IsActive,
+        emp0008.UMP,
+        emp0008.Salary,
+        emp0008.PTKPID,
+        emp0008.Allw_Keterampilan,
+        emp0008.Allw_Jabatan,
+        emp0008.Allw_MasaKerja,
+        emp0008.Allw_Dll,
+        emp0008.Pot_Koperasi,
+        emp0008.Pot_Dll,
+        emp0008.Pot_Bpjs,
+        emp0008.Pot_Bpjs_TK
+        FROM
+        emp0003
+        LEFT JOIN emp0001 ON emp0003.DepartmentID = emp0001.DepartmentID
+        LEFT JOIN emp0002 ON emp0003.PositionID = emp0002.PositionID
+        LEFT JOIN emp0025 ON emp0003.TitleID = emp0025.TitleID
+        LEFT JOIN emp0008 ON emp0008.EmployeeID = emp0003.EmployeeID
+        WHERE
+        emp0003.IsActive = 'T'
+        ";
+        $query = $this->db->query($data);
+        return $query->result();
+    }
 }

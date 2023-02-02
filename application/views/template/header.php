@@ -125,7 +125,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#">Salary Employee</a>
+                                <a href="<?= base_url('Employee/salary') ?>">Salary Employee</a>
                             </li>
                             <li>
                                 <a href="#">Report</a>
@@ -175,6 +175,12 @@
     <!-- Data Tables -->
     <script src="<?= base_url() ?>assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="<?= base_url() ?>assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="<?= base_url() ?>assets/js/dataTables.buttons.min.js"></script>
+    <script src="<?= base_url() ?>assets/js/jszip.min.js"></script>
+    <script src="<?= base_url() ?>assets/js/pdfmake.min.js"></script>
+    <script src="<?= base_url() ?>assets/js/vfs_fonts.js"></script>
+    <script src="<?= base_url() ?>assets/js/buttons.html5.min.js"></script>
+    <script src="<?= base_url() ?>assets/js/buttons.print.min.js"></script>
 
     <!-- Swall Fire -->
     <script src="<?= base_url() ?>assets/js/sweetalert2.all.min.js"></script>

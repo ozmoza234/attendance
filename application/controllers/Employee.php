@@ -21,4 +21,17 @@ class Employee extends CI_Controller
         $result['data'] = $this->Employee_m->load_edata();
         echo json_encode($result);
     }
+
+    public function salary()
+    {
+        $this->load->view('template/header');
+        $this->load->view('employee/salarylist');
+        $this->load->view('template/footer');
+    }
+
+    public function getDatas()
+    {
+        $result['data'] = $this->Employee_m->load_sedata();
+        echo json_encode($result);
+    }
 }

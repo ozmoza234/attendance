@@ -22,10 +22,9 @@ class Auth extends CI_Controller
             $username = $this->input->post('username');
             $password = $this->input->post('password');
 
-            $user = $this->db->get_where('sys0001', ['UserName' => $username])->row_array();
+            $user = $this->db->get_where('sys0001', ['UserName' => 'SUPER'])->row_array();
 
             if ($user) {
-                // var_dump($user['Password']);
                 if (password_verify($password, $user['Password'])) {
                     $data = array(
                         'username' => $user['UserName']

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/output.css" />
     <link rel="stylesheet" href="<?php echo base_url() ?>dist/output.css" />
     <!-- CSS only -->
-    <link href="<?= base_url() ?>assets/css/bootstrapv5.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="<?= base_url() ?>assets/css/bootstrapv5.min.css" rel="stylesheet" integrity="" crossorigin="anonymous">
     <script src="<?= base_url() ?>assets/js/lottie-player.js"></script>
 </head>
 
@@ -46,7 +46,7 @@
         </div>
     </div>
     <!-- JavaScript Bundle with Popper -->
-    <script src="<?= base_url() ?>assets/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="<?= base_url() ?>assets/js/bootstrap.bundle.min.js" integrity="" crossorigin="anonymous"></script>
 </body>
 <!--   Core JS Files   -->
 <script src="<?= base_url() ?>assets/js/jquery.3.2.1.min.js"></script>

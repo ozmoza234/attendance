@@ -44,7 +44,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="row" style="margin-top: 50px;">
+                <div class="row" style="margin-top: 50px; overflow:auto;">
                     <table id="tableUser" class="table activate-select dt-responsive nowrap w-100">
                         <thead>
                             <tr>
@@ -75,7 +75,7 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-12" style="overflow:auto;">
                         <table class="table table-hover" id="table_edit_header">
                             <thead>
                                 <tr>
@@ -110,9 +110,7 @@
 <script>
     $(document).ready(function() {
         let tableUser;
-        // let tableEmp
 
-        // tableEmp = $('#table_edit_header').DataTable();
         tableUser = $('#tableUser').DataTable({
             ajax: {
                 url: '<?= base_url('Employee/getData') ?>',
@@ -176,6 +174,7 @@
             } else {
                 $('#table_edit_header').DataTable({
                     autoWidth: false,
+                    paging: false,
                     ajax: {
                         url: '<?= base_url('Attendance/detailss') ?>',
                         data: {
@@ -186,6 +185,10 @@
                         type: 'GET',
                         dataType: 'json'
                     },
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'csv', 'excel', 'pdf', 'print'
+                    ],
                     columnDefs: [{
                             targets: 0,
                             'data': null,
