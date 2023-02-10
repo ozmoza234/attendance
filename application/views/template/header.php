@@ -114,7 +114,7 @@
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class="mdi mdi-currency-usd"></i>
-                            <span>Accounting</span>
+                            <span>Finance</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
                             <li>
@@ -122,9 +122,21 @@
                                     <span>UMP</span>
                                 </a>
                             </li>
+
                             <li>
-                                <a href="<?= base_url('Employee/salary') ?>">Salary Employee</a>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <span>Salary</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li>
+                                        <a href="<?= base_url('Employee/salary') ?>">All Employee</a>
+                                    </li>
+                                    <li>
+                                        <a href="<?= base_url('Employee/op_kandang') ?>">Operator Kandang</a>
+                                    </li>
+                                </ul>
                             </li>
+
                             <li>
                                 <a href="#">Report</a>
                             </li>

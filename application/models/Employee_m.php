@@ -83,4 +83,49 @@ class Employee_m extends ci_model
         $query = $this->db->query($data);
         return $query->result();
     }
+
+    public function get_op_list($id)
+    {
+        $data = "SELECT
+        t1.GroupID,
+        t2.GroupDesc,
+        t2.Head,
+        t1.EmployeeID,
+        t3.NIK,
+        t3.`Name` AS ename,
+        t4.`Name` AS Head_name,
+        t5.TitleDesc,
+        t7.PositionDesc,
+        t6.DepartmentDesc,
+        t5.TitleID,
+        t8.UMP,
+        t8.Salary,
+        t8.PTKPID,
+        pajak.PTKP,
+        t8.Allw_Keterampilan,
+        t8.Allw_Jabatan,
+        t8.Allw_MasaKerja,
+        t8.Allw_Dll,
+        t8.Pot_Koperasi,
+        t8.Pot_Dll,
+        t8.Pot_Bpjs,
+        t8.Pot_Bpjs_TK 
+        FROM
+        emp0005 AS t1
+        LEFT JOIN emp0004 AS t2 ON t1.GroupID = t2.GroupID
+        LEFT JOIN emp0003 AS t3 ON t1.EmployeeID = t3.EmployeeID
+        LEFT JOIN emp0003 AS t4 ON t2.Head = t4.EmployeeID
+        LEFT JOIN emp0025 AS t5 ON t3.TitleID = t5.TitleID
+        LEFT JOIN emp0001 AS t6 ON t3.DepartmentID = t6.DepartmentID
+        LEFT JOIN emp0002 AS t7 ON t3.PositionID = t7.PositionID
+        LEFT JOIN emp0008 AS t8 ON t8.EmployeeID = t3.EmployeeID
+        LEFT JOIN emp0007 AS pajak	ON pajak.PTKPID = t8.PTKPID
+        WHERE
+        T3.IsActive = 'T' 
+        AND t3.TitleID = $id 
+        ORDER BY
+        t8.Salary ASC";
+        $query = $this->db->query($data);
+        return $query->result();
+    }
 }

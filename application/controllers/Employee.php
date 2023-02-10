@@ -29,9 +29,22 @@ class Employee extends CI_Controller
         $this->load->view('template/footer');
     }
 
+    public function op_kandang()
+    {
+        $this->load->view('template/header');
+        $this->load->view('employee/opkandanglist');
+        $this->load->view('template/footer');
+    }
+
     public function getDatas()
     {
         $result['data'] = $this->Employee_m->load_sedata();
+        echo json_encode($result);
+    }
+    public function get_op_kandang()
+    {
+        $id = 29;
+        $result['data'] = $this->Employee_m->get_op_list($id);
         echo json_encode($result);
     }
 }
