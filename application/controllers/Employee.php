@@ -7,6 +7,7 @@ class Employee extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Employee_m');
+        $this->load->model('Ump_m');
     }
 
     public function index()
@@ -31,8 +32,9 @@ class Employee extends CI_Controller
 
     public function op_kandang()
     {
+        $data['listump'] = $this->Ump_m->load_eedata();
         $this->load->view('template/header');
-        $this->load->view('employee/opkandanglist');
+        $this->load->view('employee/opkandanglist',$data);
         $this->load->view('template/footer');
     }
 

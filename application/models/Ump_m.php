@@ -16,4 +16,31 @@ class Ump_m extends ci_model
         $q = $this->db->query($data);
         return $q->result();
     }
+
+    public function load_eedata()
+    {
+        $data = "SELECT
+        emp0006.PeriodeUMP,
+        emp0006.`YEAR`,
+        emp0006.UMP,
+        emp0006.UmpID
+        FROM
+        emp0006";
+
+        return $this->db->query($data);
+    }
+
+    public function load_edata_by_id()
+    {
+         $data = "SELECT
+        emp0006.PeriodeUMP,
+        emp0006.`YEAR`,
+        emp0006.UMP,
+        emp0006.UmpID
+        FROM
+        emp0006";
+
+        $query = $this->db->query($data);
+        return $query->result();
+    }
 }
