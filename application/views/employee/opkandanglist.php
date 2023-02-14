@@ -73,7 +73,7 @@
                             <div class="col-lg-3">
                                 <label for="ump">UMP: </label>
                                 <select class="form-control" name="ump" id="ump">
-                                    <option class="form-control text-center" value=""> -- Select UMP -- </option>
+                                    <option class="form-control text-center" value="0"> -- Select UMP -- </option>
                                     <?php foreach ($listump->result() as $ump) { ?>
                                         <option value="<?= $ump->UmpID ?>"><?= $ump->PeriodeUMP ?></option>
                                     <?php } ?>
@@ -196,7 +196,6 @@
         $('#load_details').DataTable();
 
         $('#tableUser tbody').on('click', '#btn_d', function() {
-            $('#load_details').DataTable().destroy();
             let id = tableUser.row($(this).parents('tr')).data().EmployeeID;
             let nik = tableUser.row($(this).parents('tr')).data().NIK;
             let ename = tableUser.row($(this).parents('tr')).data().ename;
@@ -226,7 +225,10 @@
                 bpjstk.prop('checked', true)
             }
             let etc2 = tableUser.row($(this).parents('tr')).data().Pot_Dll;
-                
+            let ump_id = tableUser.row($(this).parents('tr')).data().UMP;
+            console.log(ump_id);
+            let select_ump = $(`#ump option[value=${ump_id}]`);
+            select_ump.prop('selected',true);
             $('#nik').val(nik);
             $('#title').val(title);
             $('#department').val(dept);
@@ -254,7 +256,11 @@
 
                 // })
             }
-        })
+        });
+
+        $('#modal_edit').on('hidden.bs.modal', function (e) {
+            $('#ump').val('0')
+        });
 
     })
 </script>
