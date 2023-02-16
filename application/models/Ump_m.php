@@ -29,6 +29,19 @@ class Ump_m extends ci_model
 
         return $this->db->query($data);
     }
+    public function load_ptdata()
+    {
+        $data = "SELECT
+        emp0007.PTKPID,
+        emp0007.Description
+        FROM
+        emp0007
+        WHERE
+        emp0007.IsActive = 'T'
+        ";
+
+        return $this->db->query($data);
+    }
 
     public function load_edata_by_id()
     {

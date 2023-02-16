@@ -33,6 +33,7 @@ class Employee extends CI_Controller
     public function op_kandang()
     {
         $data['listump'] = $this->Ump_m->load_eedata();
+        $data['listptkp'] = $this->Ump_m->load_ptdata();
         $this->load->view('template/header');
         $this->load->view('employee/opkandanglist',$data);
         $this->load->view('template/footer');

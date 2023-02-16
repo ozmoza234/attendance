@@ -84,21 +84,14 @@
                                 <input type="text" class="form-control" name="pay" id="pay" readonly>
                             </div>
                             <div class="col-lg-3">
-                                <label for="skill">Skills: </label>
+                                <label for="skill">Skills (Rp.): </label>
                                 <input type="text" class="form-control" name="skill" id="skill">
                             </div>
                             <div class="col-lg-3">
-                                <label for="service">Service: </label>
+                                <label for="service">Service (Rp.): </label>
                                 <input type="text" class="form-control" name="service" id="service">
                             </div>
-                            <div class="col-lg-3">
-                                <label for="etc1">Etc: </label>
-                                <input type="text" class="form-control" name="etc1" id="etc1">
-                            </div>
-                            <div class="col-lg-9">
-                                <label for="etc1">Remarks: </label>
-                                <input type="text" class="form-control" name="etc1" id="etc1">
-                            </div>
+                
                         </div>
                         <div class="row mt-4">
                             <div class="col-md-12" style="margin-top: 20px;">
@@ -107,28 +100,33 @@
                         </div>
                         <div class="row mt-3">
                             <div class="col-lg-3">
-                                <label for="koperasi">Coperation: </label>
-                                <input type="text" class="form-control" name="koperasi" id="koperasi" readonly>
+                                <label for="koperasi">Coperation (Rp.): </label>
+                                <input type="text" class="form-control" name="koperasi" id="koperasi" >
                             </div>
                             <div class="col-lg-3">
+                                <label for="koperasi">PTKP: </label>
+                                <select class="form-control" name="ptkp" id="ptkp">
+                                    <option class="form-control text-center" value="0"> -- Select PTKP -- </option>
+                                    <?php foreach ($listptkp->result() as $ptkp) { ?>
+                                        <option value="<?= $ptkp->PTKPID ?>"><?= $ptkp->Description ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                            <div class="col-lg-1">
                                 <label for="bpjs">BPJS: </label>
                                 <input class="form-check-input" type="checkbox" id="bpjs" name="bpjs">
+                            </div>
+                            <div class="col-lg-2">
                                 <label for="bpjstk">BPJS Tk: </label>
-                                <!-- <input type="text" readonly class="form-control" name="bpjstk" id="bpjstk"> -->
                                 <input class="form-check-input" type="checkbox" id="bpjstk" name="bpjstk">
                             </div>
-                            <div class="col-lg-3">
-
-                            </div>
-                            <div class="col-lg-3">
-                                <label for="etc2">Etc: </label>
-                                <input type="text" readonly class="form-control" name="etc2" id="etc2">
-                            </div>
+                                                  
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save</button>
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
@@ -209,7 +207,7 @@
             let post = tableUser.row($(this).parents('tr')).data().Allw_Jabatan;
             let pay = tableUser.row($(this).parents('tr')).data().Salary;
             let valMasked = $('#pay').masked(pay);
-            // console.log(valMasked);
+            let pjk = tableUser.row($(this).parents('tr')).data().PTKPID;
             let skill = tableUser.row($(this).parents('tr')).data().Allw_Keterampilan;
             let service = tableUser.row($(this).parents('tr')).data().Allw_MasaKerja;
             let etc1 = tableUser.row($(this).parents('tr')).data().Allw_Dll;
@@ -228,9 +226,12 @@
             }
             let etc2 = tableUser.row($(this).parents('tr')).data().Pot_Dll;
             let ump_id = tableUser.row($(this).parents('tr')).data().UMP;
-            console.log(ump_id);
+            let ptkp_id = tableUser.row($(this).parents('tr')).data().PTKPID;
+            
             let select_ump = $(`#ump option[value=${ump_id}]`);
+            let select_ptkp = $(`#ptkp option[value=${ptkp_id}]`);
             select_ump.prop('selected', true);
+            select_ptkp.prop('selected', true);
             $('#nik').val(nik);
             $('#title').val(title);
             $('#department').val(dept);
@@ -241,6 +242,7 @@
             $('#etc1').val(etc1);
             $('#koperasi').val(koperasi);
             $('#etc2').val(etc2);
+            $('#ptkp').val(pjk);
 
             $('#modal_edit_title').text('Details of ' + ename)
             $('#modal_edit').appendTo("body").modal("show");
@@ -273,6 +275,18 @@
         });
 
         $('#pay').mask('000.000.000', {
+            reverse: true
+        });
+
+        $('#skill').mask('000.000.000', {
+            reverse: true
+        });
+
+        $('#service').mask('000.000.000', {
+            reverse: true
+        });
+
+        $('#kperasi').mask('000.000.000', {
             reverse: true
         });
 
