@@ -21,4 +21,11 @@ class Ump extends CI_Controller
         $result['data'] = $this->Ump_m->load_edata();
         echo json_encode($result);
     }
+
+    public function get_ump_by_id()
+    {
+        $UmpID = $this->input->get('umpid');
+        $result['data'] = $this->Ump_m->load_ump_by_id($UmpID);
+        echo json_encode($result);
+    }
 }

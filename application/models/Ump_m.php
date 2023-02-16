@@ -32,7 +32,7 @@ class Ump_m extends ci_model
 
     public function load_edata_by_id()
     {
-         $data = "SELECT
+        $data = "SELECT
         emp0006.PeriodeUMP,
         emp0006.`YEAR`,
         emp0006.UMP,
@@ -40,6 +40,18 @@ class Ump_m extends ci_model
         FROM
         emp0006";
 
+        $query = $this->db->query($data);
+        return $query->result();
+    }
+
+    public function load_ump_by_id($UmpID)
+    {
+        $data = "SELECT
+        emp0006.UMP
+        FROM
+        emp0006
+        WHERE
+        emp0006.UmpID = $UmpID";
         $query = $this->db->query($data);
         return $query->result();
     }

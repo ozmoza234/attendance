@@ -14,7 +14,7 @@
             <div class="card-title text-center" style="padding:20px;">
                 <h4 class="mb-sm-0">List</h4>
             </div>
-            <div class="card-body" style="overflow:auto;">
+            <div class="card-body p-5">
                 <table id="tableUser" class="table activate-select dt-responsive nowrap w-100">
                     <thead>
                         <tr>
@@ -118,7 +118,7 @@
                                 <input class="form-check-input" type="checkbox" id="bpjstk" name="bpjstk">
                             </div>
                             <div class="col-lg-3">
-                                
+
                             </div>
                             <div class="col-lg-3">
                                 <label for="etc2">Etc: </label>
@@ -136,12 +136,14 @@
 </div>
 <!-- End Modal Salary -->
 
+<script src="<?= base_url() ?>assets/js/jquery.mask.min.js"></script>
 <script>
     $(document).ready(function() {
         let tableUser;
 
         tableUser = $('#tableUser').DataTable({
             autoWidth: false,
+            scrollX: true,
             ajax: {
                 url: '<?= base_url('Employee/get_op_kandang') ?>',
                 type: 'GET',
@@ -205,62 +207,78 @@
             let salary = tableUser.row($(this).parents('tr')).data().Salary
             let skills = tableUser.row($(this).parents('tr')).data().Allw_Keterampilan;
             let post = tableUser.row($(this).parents('tr')).data().Allw_Jabatan;
-            let pay = parseFloat(tableUser.row($(this).parents('tr')).data().Salary).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+            let pay = tableUser.row($(this).parents('tr')).data().Salary;
+            let valMasked = $('#pay').masked(pay);
+            // console.log(valMasked);
             let skill = tableUser.row($(this).parents('tr')).data().Allw_Keterampilan;
             let service = tableUser.row($(this).parents('tr')).data().Allw_MasaKerja;
             let etc1 = tableUser.row($(this).parents('tr')).data().Allw_Dll;
             let koperasi = tableUser.row($(this).parents('tr')).data().Pot_Koperasi;
             let bpjs = $('#bpjs');
-            if(tableUser.row($(this).parents('tr')).data().Pot_Bpjs == 'F') {
+            if (tableUser.row($(this).parents('tr')).data().Pot_Bpjs == 'F') {
                 bpjs.prop('checked', false);
-            } else if (tableUser.row($(this).parents('tr')).data().Pot_Bpjs == 'T')
-            {
+            } else if (tableUser.row($(this).parents('tr')).data().Pot_Bpjs == 'T') {
                 bpjs.prop('checked', true);
             }
             let bpjstk = $('#bpjstk');
-            if(tableUser.row($(this).parents('tr')).data().Pot_Bpjs_TK == 'F') {
+            if (tableUser.row($(this).parents('tr')).data().Pot_Bpjs_TK == 'F') {
                 bpjstk.prop('checked', false)
-            } else if (tableUser.row($(this).parents('tr')).data().Pot_Bpjs_TK == 'T')
-            {
+            } else if (tableUser.row($(this).parents('tr')).data().Pot_Bpjs_TK == 'T') {
                 bpjstk.prop('checked', true)
             }
             let etc2 = tableUser.row($(this).parents('tr')).data().Pot_Dll;
             let ump_id = tableUser.row($(this).parents('tr')).data().UMP;
             console.log(ump_id);
             let select_ump = $(`#ump option[value=${ump_id}]`);
-            select_ump.prop('selected',true);
+            select_ump.prop('selected', true);
             $('#nik').val(nik);
             $('#title').val(title);
             $('#department').val(dept);
             $('#pos').val(position);
-            $('#pay').val(pay);
+            $('#pay').val(valMasked);
             $('#skill').val(skill);
             $('#service').val(service);
             $('#etc1').val(etc1);
             $('#koperasi').val(koperasi);
-            // $('#bpjs').val(bpjs);
-            // $('#bpjstk').val(bpjstk);
             $('#etc2').val(etc2);
 
             $('#modal_edit_title').text('Details of ' + ename)
             $('#modal_edit').appendTo("body").modal("show");
         });
 
-        $('#ump').on('change',function(){
-            if ($(this).val() == "") {
-                $('#pay').prop("readonly",false);
+        $('#ump').on('change', function() {
+            if ($(this).val() == 0) {
+                $('#pay').prop("readonly", false);
+                $('#pay').val(0);
             } else if ($(this).val() != "") {
-                $('#pay').prop("readonly",true);
-                console.log($(this).val())
-                // $.ajax({
-
-                // })
+                $('#pay').prop("readonly", true);
+                let umpid = $(this).val();
+                let umpval = $.ajax({
+                    url: '<?= base_url('Ump/get_ump_by_id') ?>',
+                    data: {
+                        umpid: umpid
+                    },
+                    type: 'GET',
+                    dataType: 'json'
+                });
+                $.when(umpval).done(function(umpvalr) {
+                    let valMasked = $('#pay').masked(umpvalr.data[0].UMP);
+                    $('#pay').val(valMasked);
+                })
             }
         });
 
-        $('#modal_edit').on('hidden.bs.modal', function (e) {
-            $('#ump').val('0')
+        $('#modal_edit').on('hidden.bs.modal', function(e) {
+            $('#ump').val('0');
         });
+
+        $('#pay').mask('000.000.000', {
+            reverse: true
+        });
+
+        $('#pay').on('keyup', function() {
+            console.log($(this).cleanVal())
+        })
 
     })
 </script>
