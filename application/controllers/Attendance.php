@@ -32,10 +32,10 @@ class Attendance extends CI_Controller
     public function detailss()
     {
         $EmployeeID = $this->input->get('EmployeeID');
-        $month = $this->input->get('month');
-        $year = $this->input->get('year');
+        $date_begin = $this->input->get('date_begin');
+        $date_end = $this->input->get('date_end');
 
-        $result['data'] = $this->Attendance_m->load_d($EmployeeID, $month, $year);
+        $result['data'] = $this->Attendance_m->load_d_v2($EmployeeID, $date_begin, $date_end);
         echo json_encode($result);
     }
 }

@@ -35,7 +35,14 @@ class Employee extends CI_Controller
         $data['listump'] = $this->Ump_m->load_eedata();
         $data['listptkp'] = $this->Ump_m->load_ptdata();
         $this->load->view('template/header');
-        $this->load->view('employee/opkandanglist',$data);
+        $this->load->view('employee/opkandanglist', $data);
+        $this->load->view('template/footer');
+    }
+
+    public function addon()
+    {
+        $this->load->view('template/header');
+        $this->load->view('employee/salaryaddon');
         $this->load->view('template/footer');
     }
 
@@ -44,6 +51,7 @@ class Employee extends CI_Controller
         $result['data'] = $this->Employee_m->load_sedata();
         echo json_encode($result);
     }
+
     public function get_op_kandang()
     {
         $id = 29;

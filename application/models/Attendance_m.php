@@ -59,44 +59,56 @@ class Attendance_m extends ci_model
         return $query->result();
     }
 
-    public function load_d_v2()
+    public function load_d_v2($EmployeeID, $date_begin, $date_end)
     {
         $data = "SELECT
         DATE( t1.Enroll ) AS date,
+        DAYNAME( t1.Enroll ) AS DAY,
+        MONTH( t1.Enroll ) AS MONTH,
+        YEAR( t1.Enroll ) AS YEAR,
         t2.`Name`,
         t3.BTIn AS Begin_in,
         t3.ETIn AS End_in,
         t3.BTOut AS Begin_out,
         t3.ETOut AS End_out,
         t6.GroupDesc,
+        TIMEDIFF(MAX(TIME(t1.Enroll)), MIN(TIME(t1.Enroll))) total,
+        SUBTIME(TIMEDIFF(MAX(TIME(t1.Enroll)), MIN(TIME(t1.Enroll))), '08:00:00') difference,
+        CASE
+            WHEN TIMEDIFF(MAX(TIME( t1.Enroll)), MIN(TIME(t1.Enroll))) < '08:00:00' AND TIMEDIFF( MAX( TIME( t1.Enroll ) ), MIN( TIME( t1.Enroll ) ) ) != '00:00:00' THEN
+            'Minus' 
+            WHEN MAX(TIME(t1.Enroll)) = MIN(TIME(t1.Enroll)) THEN
+            'Forgot Scan' ELSE 'OK' 
+        END WorkHourDesc,
+        CASE
+            
+            WHEN MIN( TIME( t1.Enroll ) ) BETWEEN t3.BTIn 
+            AND t3.ETIn THEN
+                MIN( TIME( t1.Enroll ) ) ELSE 'null' 
+                END AS time_in,
         CASE
                 
-                WHEN MIN( TIME( t1.Enroll ) ) BETWEEN t3.BTIn 
-                AND t3.ETIn THEN
-                    MIN( TIME( t1.Enroll ) ) ELSE 'Not Scan In' 
-                    END AS time_in,
-            CASE
-                    
-                    WHEN MAX( TIME( t1.Enroll ) ) BETWEEN t3.BTOut 
-                    AND t3.ETOut THEN
-                        MAX( TIME( t1.Enroll ) ) ELSE 'Not Scan Out' 
-                        END AS time_out 
-                FROM
-                    dvc0004 AS t1
-                    LEFT JOIN emp0003 AS t2 ON t1.EmpID = t2.EmployeeID,
-                    shd0001 AS t3,
-                    emp0005 AS t5
-                    LEFT JOIN dvc0004 AS t4 ON t4.EmpID = t5.EmployeeID
-                    LEFT JOIN emp0004 AS t6 ON t5.GroupID = t6.GroupID
-                WHERE
-                    t2.EmployeeID = 101 
-                    AND t5.EmployeeID = 101
-                    AND MONTH ( t1.Enroll ) LIKE '%8%' 
-                    AND YEAR ( t1.Enroll ) LIKE '%2022%' 
-                GROUP BY
-                    DATE( t1.Enroll ) 
-            ORDER BY
-            t1.Enroll DESC";
+                WHEN MAX( TIME( t1.Enroll ) ) BETWEEN t3.BTOut 
+                AND t3.ETOut THEN
+                    MAX( TIME( t1.Enroll ) ) ELSE 'null' 
+                    END AS time_out 
+            FROM
+                dvc0004 AS t1
+                LEFT JOIN emp0003 AS t2 ON t1.EmpID = t2.EmployeeID,
+                shd0001 AS t3,
+                emp0005 AS t5
+                LEFT JOIN dvc0004 AS t4 ON t4.EmpID = t5.EmployeeID
+                LEFT JOIN emp0004 AS t6 ON t5.GroupID = t6.GroupID
+            WHERE
+                t2.EmployeeID = $EmployeeID 
+                AND t5.EmployeeID = $EmployeeID
+                AND DATE ( t1.Enroll ) BETWEEN '$date_begin' AND '$date_end'
+            GROUP BY
+                DATE( t1.Enroll ) 
+        ORDER BY
+        t1.Enroll DESC";
+        $query = $this->db->query($data);
+        return $query->result();
     }
 
     public function get_head()

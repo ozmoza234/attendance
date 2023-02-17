@@ -16,8 +16,8 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-2">
-                        <label for="months">Months: </label>
-                        <select name="months" id="months" class="form-control">
+                        <label for="months">From: </label>
+                        <!-- <select name="months" id="months" class="form-control">
                             <option value="">-- Select Month --</option>
                             <option value="1">January</option>
                             <option value="2">February</option>
@@ -31,20 +31,22 @@
                             <option value="10">October</option>
                             <option value="11">November</option>
                             <option value="12">December</option>
-                        </select>
+                        </select> -->
+                        <input type="date" class="form-control" id="date_begin">
                     </div>
                     <div class="col-lg-2">
-                        <label for="years">Years: </label>
-                        <select name="years" id="years" class="form-control">
+                        <label for="years">To: </label>
+                        <!-- <select name="years" id="years" class="form-control">
                             <option value="">-- Select Year --</option>
                             <option value="2020">2020</option>
                             <option value="2021">2021</option>
                             <option value="2022">2022</option>
                             <option value="2023">2023</option>
-                        </select>
+                        </select> -->
+                        <input type="date" class="form-control" id="date_end">
                     </div>
                 </div>
-                <div class="row" style="margin-top: 50px; overflow:auto;">
+                <div class=" row" style="margin-top: 50px; overflow:auto;">
                     <table id="tableUser" class="table activate-select dt-responsive nowrap w-100">
                         <thead>
                             <tr>
@@ -59,6 +61,17 @@
                         </thead>
                         <tbody>
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>No</th>
+                                <th>NIK</th>
+                                <th>Name</th>
+                                <th>Department</th>
+                                <th>Position</th>
+                                <th>Title</th>
+                                <th>Details</th>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>
@@ -92,6 +105,19 @@
                             </thead>
                             <tbody>
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Name</th>
+                                    <th>Day</th>
+                                    <th>Date</th>
+                                    <th>In Time</th>
+                                    <th>Out Time</th>
+                                    <th>Work Hours Total</th>
+                                    <th>Difference</th>
+                                    <th>Status</th>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
@@ -109,6 +135,11 @@
 <!-- Custom Scripts -->
 <script>
     $(document).ready(function() {
+        $('#tableUser thead th').each(function() {
+            var title = $(this).text();
+            $(this).append('<input type="text" class="form-control"/>');
+        });
+
         let tableUser;
 
         tableUser = $('#tableUser').DataTable({
@@ -150,25 +181,40 @@
                         return `<button class="btn btn-primary" id="btn_d"><i class="mdi mdi-calendar-search"></i></button>`
                     }
                 },
-            ]
+            ],
+            initComplete: function() {
+                // Apply the search
+                this.api()
+                    .columns()
+                    .every(function() {
+                        var that = this;
+
+                        $('input', this.header()).on('keyup change clear', function() {
+                            if (that.search() !== this.value) {
+                                that.search(this.value).draw();
+                            }
+                        });
+                    });
+            },
         });
 
         $('#tableUser tbody').on('click', '#btn_d', function() {
             $('#table_edit_header').DataTable().destroy();
             let EmployeeID = tableUser.row($(this).parents('tr')).data().EmployeeID;
             let n = tableUser.row($(this).parents('tr')).data().ename;
-            let month = $('#months').val();
-            let year = $('#years').val();
-            if (month == "") {
+            let date_begin = $('#date_begin').val();
+            let date_end = $('#date_end').val();
+            console.log(date_begin, date_end);
+            if (date_begin == "") {
                 Swal.fire({
                     icon: 'warning',
-                    title: 'Month Still Empty',
+                    title: 'Begin Date Still Empty',
                     text: 'Please input month from list given'
                 })
-            } else if (year == "") {
+            } else if (date_end == "") {
                 Swal.fire({
                     icon: 'warning',
-                    title: 'Year Still Empty',
+                    title: 'Begin Date Still Empty',
                     text: 'Please input year from list given'
                 })
             } else {
@@ -179,8 +225,8 @@
                         url: '<?= base_url('Attendance/detailss') ?>',
                         data: {
                             EmployeeID: EmployeeID,
-                            month: month,
-                            year: year,
+                            date_begin: date_begin,
+                            date_end: date_end,
                         },
                         type: 'GET',
                         dataType: 'json'
@@ -210,11 +256,11 @@
                         },
                         {
                             targets: 4,
-                            data: 'inTime'
+                            data: 'time_in'
                         },
                         {
                             targets: 5,
-                            data: 'outTime'
+                            data: 'time_out'
                         },
                         {
                             targets: 6,

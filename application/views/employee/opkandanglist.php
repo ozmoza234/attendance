@@ -91,7 +91,7 @@
                                 <label for="service">Service (Rp.): </label>
                                 <input type="text" class="form-control" name="service" id="service">
                             </div>
-                
+
                         </div>
                         <div class="row mt-4">
                             <div class="col-md-12" style="margin-top: 20px;">
@@ -101,7 +101,7 @@
                         <div class="row mt-3">
                             <div class="col-lg-3">
                                 <label for="koperasi">Coperation (Rp.): </label>
-                                <input type="text" class="form-control" name="koperasi" id="koperasi" >
+                                <input type="text" class="form-control" name="koperasi" id="koperasi">
                             </div>
                             <div class="col-lg-3">
                                 <label for="koperasi">PTKP: </label>
@@ -120,7 +120,7 @@
                                 <label for="bpjstk">BPJS Tk: </label>
                                 <input class="form-check-input" type="checkbox" id="bpjstk" name="bpjstk">
                             </div>
-                                                  
+
                         </div>
                     </div>
                 </div>
@@ -185,7 +185,7 @@
                     targets: 7,
                     'data': null,
                     render: function(data, type, row) {
-                        return `<button class="btn btn-primary btn-sm" id="btn_d"><i class="mdi mdi-calendar-search"></i></button><button class="btn btn-info btn-sm" id="btn_d"><i class="mdi mdi-calendar-search"></i></button><button class="btn btn-success btn-sm" id="btn_d"><i class="mdi mdi-calendar-search"></i></button>`
+                        return `<button class="btn btn-primary btn-sm" id="btn_d"><i class="mdi mdi-calendar-search"></i></button>`
                     }
                 },
             ]
@@ -227,7 +227,7 @@
             let etc2 = tableUser.row($(this).parents('tr')).data().Pot_Dll;
             let ump_id = tableUser.row($(this).parents('tr')).data().UMP;
             let ptkp_id = tableUser.row($(this).parents('tr')).data().PTKPID;
-            
+
             let select_ump = $(`#ump option[value=${ump_id}]`);
             let select_ptkp = $(`#ptkp option[value=${ptkp_id}]`);
             select_ump.prop('selected', true);
