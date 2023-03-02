@@ -18,6 +18,7 @@
 
     <!-- App Css-->
     <link href="<?= base_url('assets/css/app.min.css') ?>" id="app-style" rel="stylesheet" type="text/css" media="all" />
+    <link href="<?= base_url('assets/css/fixedColumns.dataTables.min.css') ?>" id="app-style" rel="stylesheet" type="text/css" media="all" />
 
     <!-- DataTables -->
     <link href="<?= base_url() ?>assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
@@ -191,9 +192,12 @@
     <script src="<?= base_url() ?>assets/js/vfs_fonts.js"></script>
     <script src="<?= base_url() ?>assets/js/buttons.html5.min.js"></script>
     <script src="<?= base_url() ?>assets/js/buttons.print.min.js"></script>
+    <script src="<?= base_url() ?>assets/js/dataTables.fixedColumns.min.js"></script>
 
     <!-- Swall Fire -->
     <script src="<?= base_url() ?>assets/js/sweetalert2.all.min.js"></script>
+
+    <script src="<?= base_url() ?>assets/js/jquery.mask.min.js"></script>
 
     <!-- Custom Scripts -->
     <script>

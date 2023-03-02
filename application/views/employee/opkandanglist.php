@@ -1,3 +1,8 @@
+<style>
+    table th {
+        text-align: center;
+    }
+</style>
 <!-- start page title -->
 <div class="row">
     <div class="col-12">
@@ -11,10 +16,12 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-title text-center" style="padding:20px;">
+            <div class="card-title text-center" style="margin-top:5%;">
                 <h4 class="mb-sm-0">List</h4>
             </div>
-            <div class="card-body p-5">
+            <div class="card-body p-4">
+                <button class="btn btn-primary btn-sm" id="btn-nup" style="margin-bottom:1%;"><i class="fas fa-list-ol"></i> NUP</button>
+                <button class="btn btn-primary btn-sm" id="btn-rekapitulasi" style="margin-bottom:1%;"><i class="fas fa-list-ol"></i> Recapitulation</button>
                 <table id="tableUser" class="table activate-select dt-responsive nowrap w-100">
                     <thead>
                         <tr>
@@ -134,165 +141,231 @@
 </div>
 <!-- End Modal Salary -->
 
-<script src="<?= base_url() ?>assets/js/jquery.mask.min.js"></script>
-<script>
-    $(document).ready(function() {
-        let tableUser;
+<!-- Modal NUP-->
+<div class="modal fade" id="modal_nup" tabindex="-1" aria-labelledby="modal_nup" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal_nup_title"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <button class="btn btn-primary btn-sm" id="btn_new" style="margin-bottom:1%;"><i class="fas fa-plus"></i> Add New</button>
+                    </div>
+                    <div class="col-lg-12">
+                        <table class="table table-hover" style="width:100%" id="listNup">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>NUP Number</th>
+                                    <th>Active</th>
+                                    <th>Date Created</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>NUP Number</th>
+                                    <th>Active</th>
+                                    <th>Date Created</th>
+                                    <th>Action</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-close-modal_nup" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal END NUP-->
 
-        tableUser = $('#tableUser').DataTable({
-            autoWidth: false,
-            scrollX: true,
-            ajax: {
-                url: '<?= base_url('Employee/get_op_kandang') ?>',
-                type: 'GET',
-            },
-            dom: 'Bfrtip',
-            buttons: [
-                'csv', 'excel', 'pdf', 'print'
-            ],
-            columnDefs: [{
-                    targets: 0,
-                    'data': null,
-                    render: function(data, type, row, meta) {
-                        return meta.row + meta.settings._iDisplayStart + 1;
-                    }
-                },
-                {
-                    targets: 1,
-                    'data': 'NIK'
-                },
-                {
-                    targets: 2,
-                    'data': 'ename'
-                },
-                {
-                    targets: 3,
-                    'data': 'DepartmentDesc'
-                },
-                {
-                    targets: 4,
-                    'data': 'PositionDesc'
-                },
-                {
-                    targets: 5,
-                    'data': 'TitleDesc'
-                },
-                {
-                    targets: 6,
-                    'data': 'GroupDesc'
-                },
-                {
-                    targets: 7,
-                    'data': null,
-                    render: function(data, type, row) {
-                        return `<button class="btn btn-primary btn-sm" id="btn_d"><i class="mdi mdi-calendar-search"></i></button>`
-                    }
-                },
-            ]
-        });
+<!-- Modal Create NUP-->
+<div class="modal fade" id="modal_new_nup" tabindex="-1" aria-labelledby="modal_new_nup" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal_new_nup_title"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <input class="form-control" type="text" placeholder="e.g. ___/____" id="no_nup" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-close-new" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" id="btn-save-nup" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Modal Create NUP-->
 
-        let load_details;
+<!-- Modal Edit NUP -->
+<div class="modal fade" id="modal_edit_nup" tabindex="-1" aria-labelledby="modal_edit_nup_Label" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal_edit_nup_Label">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6">
+                        <label for="status_nup">NUP Status: </label>
+                        <select name="status_nup" id="status_nup" class="form-control">
+                            <option value="">-- Select Status --</option>
+                            <option value="0">Not Active</option>
+                            <option value="1">Active</option>
+                        </select>
+                        <input type="hidden" id="idNup">
+                    </div>
+                    <div class="col-6">
+                        <label class='btn btn-info' style="margin-top: 30px" id="btn-edit-nup"><i class="fas fa-save"></i> Update</label>
+                    </div>
+                    <div class="col-12 mt-3">
+                        <h3 class="text-center">Operator List</h3>
+                    </div>
+                    <div class="col-12">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>NIK</th>
+                                    <th>Name</th>
+                                    <th>Group</th>
+                                    <th>Save</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <select name="employee-nup" id="employee-nup" class="form-control">
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input class="form-control" type="text" id="name-nup-employee" readonly>
+                                    </td>
+                                    <td>
+                                        <input class="form-control" type="text" id="group-nup-employee" readonly>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-primary" id="saveOptNup"><i class="fas fa-save"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-12 mt-3">
+                        <table class="table table-hover" id="tableEmployeeNup" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>NIK</th>
+                                    <th>Name</th>
+                                    <th>Group</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="btn-close-detail-nup" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Modal Edit NUP -->
 
-        $('#load_details').DataTable();
+<!-- Modal Rekapitulasi-->
+<div class="modal fade" id="modal_rekapitulasi" tabindex="-1" aria-labelledby="modal_rekapitulasi" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal_rekapitulasi_title"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <button class="btn btn-primary btn-sm" id="btn_new_rekapitulasi" style="margin-bottom:1%;"><i class="fas fa-plus"></i> Add New</button>
+                    </div>
+                    <div class="col-lg-12">
+                        <table class="table table-hover" style="width:100%" id="listRekapitulasi">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Recap Number</th>
+                                    <th>Date Begin</th>
+                                    <th>Date End</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Recap Number</th>
+                                    <th>Date Begin</th>
+                                    <th>Date End</th>
+                                    <th>Action</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-close-modal-rekapitulasi" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal END NUP-->
 
-        $('#tableUser tbody').on('click', '#btn_d', function() {
-            let id = tableUser.row($(this).parents('tr')).data().EmployeeID;
-            let nik = tableUser.row($(this).parents('tr')).data().NIK;
-            let ename = tableUser.row($(this).parents('tr')).data().ename;
-            let position = tableUser.row($(this).parents('tr')).data().PositionDesc;
-            let dept = tableUser.row($(this).parents('tr')).data().DepartmentDesc;
-            let title = tableUser.row($(this).parents('tr')).data().TitleDesc;
-            let salary = tableUser.row($(this).parents('tr')).data().Salary
-            let skills = tableUser.row($(this).parents('tr')).data().Allw_Keterampilan;
-            let post = tableUser.row($(this).parents('tr')).data().Allw_Jabatan;
-            let pay = tableUser.row($(this).parents('tr')).data().Salary;
-            let valMasked = $('#pay').masked(pay);
-            let pjk = tableUser.row($(this).parents('tr')).data().PTKPID;
-            let skill = tableUser.row($(this).parents('tr')).data().Allw_Keterampilan;
-            let service = tableUser.row($(this).parents('tr')).data().Allw_MasaKerja;
-            let etc1 = tableUser.row($(this).parents('tr')).data().Allw_Dll;
-            let koperasi = tableUser.row($(this).parents('tr')).data().Pot_Koperasi;
-            let bpjs = $('#bpjs');
-            if (tableUser.row($(this).parents('tr')).data().Pot_Bpjs == 'F') {
-                bpjs.prop('checked', false);
-            } else if (tableUser.row($(this).parents('tr')).data().Pot_Bpjs == 'T') {
-                bpjs.prop('checked', true);
-            }
-            let bpjstk = $('#bpjstk');
-            if (tableUser.row($(this).parents('tr')).data().Pot_Bpjs_TK == 'F') {
-                bpjstk.prop('checked', false)
-            } else if (tableUser.row($(this).parents('tr')).data().Pot_Bpjs_TK == 'T') {
-                bpjstk.prop('checked', true)
-            }
-            let etc2 = tableUser.row($(this).parents('tr')).data().Pot_Dll;
-            let ump_id = tableUser.row($(this).parents('tr')).data().UMP;
-            let ptkp_id = tableUser.row($(this).parents('tr')).data().PTKPID;
+<!-- Modal Create Rekapitulasi-->
+<div class="modal fade" id="modal_new_rekapitulasi" tabindex="-1" aria-labelledby="modal_new_rekapitulasi" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal_new_rekapitulasi_title"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label for="r_number">Recapitulation Number:</label>
+                        <input class="form-control" type="text" name="r_number" id="r_number" value="<?= $no ?>" readonly required>
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="d_start">Date Start:</label>
+                        <input class="form-control" type="date" name="d_start" id="d_start" required>
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="d_end">Date End:</label>
+                        <input class="form-control" type="date" name="d_end" id="d_end" required>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-close-new" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" id="btn-save-recap" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Modal Create Rekapitulasi-->
 
-            let select_ump = $(`#ump option[value=${ump_id}]`);
-            let select_ptkp = $(`#ptkp option[value=${ptkp_id}]`);
-            select_ump.prop('selected', true);
-            select_ptkp.prop('selected', true);
-            $('#nik').val(nik);
-            $('#title').val(title);
-            $('#department').val(dept);
-            $('#pos').val(position);
-            $('#pay').val(valMasked);
-            $('#skill').val(skill);
-            $('#service').val(service);
-            $('#etc1').val(etc1);
-            $('#koperasi').val(koperasi);
-            $('#etc2').val(etc2);
-            $('#ptkp').val(pjk);
-
-            $('#modal_edit_title').text('Details of ' + ename)
-            $('#modal_edit').appendTo("body").modal("show");
-        });
-
-        $('#ump').on('change', function() {
-            if ($(this).val() == 0) {
-                $('#pay').prop("readonly", false);
-                $('#pay').val(0);
-            } else if ($(this).val() != "") {
-                $('#pay').prop("readonly", true);
-                let umpid = $(this).val();
-                let umpval = $.ajax({
-                    url: '<?= base_url('Ump/get_ump_by_id') ?>',
-                    data: {
-                        umpid: umpid
-                    },
-                    type: 'GET',
-                    dataType: 'json'
-                });
-                $.when(umpval).done(function(umpvalr) {
-                    let valMasked = $('#pay').masked(umpvalr.data[0].UMP);
-                    $('#pay').val(valMasked);
-                })
-            }
-        });
-
-        $('#modal_edit').on('hidden.bs.modal', function(e) {
-            $('#ump').val('0');
-        });
-
-        $('#pay').mask('000.000.000', {
-            reverse: true
-        });
-
-        $('#skill').mask('000.000.000', {
-            reverse: true
-        });
-
-        $('#service').mask('000.000.000', {
-            reverse: true
-        });
-
-        $('#kperasi').mask('000.000.000', {
-            reverse: true
-        });
-
-        $('#pay').on('keyup', function() {
-            console.log($(this).cleanVal())
-        })
-
-    })
-</script>
+<?php include APPPATH . 'views/employee/script.php' ?>
