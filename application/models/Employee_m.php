@@ -124,7 +124,9 @@ class Employee_m extends ci_model
         t1.IsActive = 'T' AND
         t1.TitleID = $id
         GROUP BY
-        t1.EmployeeID";
+        t1.EmployeeID
+        ORDER BY
+        t1.NIK";
         $query = $this->db->query($data);
         return $query->result();
     }
@@ -278,5 +280,64 @@ class Employee_m extends ci_model
     {
         $this->db->where('id', $id);
         $this->db->delete('recapitulation');
+    }
+
+    public function rekap_op_kdg($date_start, $date_end)
+    {
+        $data = "SELECT
+        nuprhb.nup_number,
+        emp0003.`Name`,
+        emp0003.EmployeeID,
+        emp0003.NIK,
+        emp0008.Salary,
+        (
+        SELECT
+            COUNT( DISTINCT DATE( dvc0004.Enroll ) ) 
+        FROM
+            dvc0004 
+        WHERE
+            dvc0004.EmpID = emp0003.EmployeeID 
+            AND DATE ( dvc0004.Enroll ) BETWEEN '$date_start' 
+            AND '$date_end' 
+        ) present,
+        DATEDIFF('$date_end' , '$date_start') AS days_in_month,
+        CASE
+		
+                WHEN emp0008.Pot_Bpjs_TK = 'T' THEN
+                emp0008.Salary * 0.02 ELSE 0 
+            END AS pot_jht,
+        CASE
+                
+                WHEN emp0008.Pot_Bpjs_TK = 'T' THEN
+                emp0008.Salary * 0.01 ELSE 0 
+            END AS pot_jp,
+        CASE
+                
+                WHEN emp0008.Pot_Bpjs_TK = 'T' THEN
+                emp0008.Salary * 0.01 ELSE 0 
+            END AS pot_bpjs
+        FROM
+            nupemployee
+            LEFT JOIN nuprhb ON nuprhb.id = nupemployee.id_nup
+            LEFT JOIN emp0003 ON nupemployee.id_employee = emp0003.EmployeeID
+            LEFT JOIN emp0008 ON emp0008.EmployeeID = emp0003.EmployeeID 
+        WHERE
+            nuprhb.is_active = 1";
+        $query = $this->db->query($data);
+        return $query->result();
+    }
+
+    public function list_emp()
+    {
+        $data = "SELECT
+        emp0003.EmployeeID,
+        emp0003.NIK,
+        emp0003.`Name`,
+        emp0003.DepartmentID
+        FROM
+        emp0003
+        WHERE
+        emp0003.IsActive = 'T'";
+        return $this->db->query($data);
     }
 }

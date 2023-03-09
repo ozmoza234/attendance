@@ -2,6 +2,10 @@
     $(document).ready(function() {
         let tableUser;
 
+        $('#vertical-menu-btn').on('click', function() {
+            tableUser.columns.adjust().draw();
+        });
+
         tableUser = $('#tableUser').DataTable({
             scrollX: true,
             scrollY: 300,
@@ -553,7 +557,7 @@
                         className: 'text-center',
                         data: null,
                         render: function(data, rype, row) {
-                            return `<label class='btn btn-info btn-sm' id="btneditrecap"><i class="fas fa-pencil-alt"></i></label> <label class='btn btn-sm btn-danger' id="btndelrecap"><i class="fas fa-trash-alt"></i></label>`
+                            return `<label class='btn btn-info btn-sm' id="btneditrecap"><i class="fas fa-pencil-alt"></i></label>  <label class="btn btn-info btn-sm sum" id="btn-sum-1"><i class="fas fa-eye"></i></label> <label class='btn btn-sm btn-danger' id="btndelrecap"><i class="fas fa-trash-alt"></i></label>`
                         }
                     },
                 ]
@@ -592,10 +596,239 @@
             })
         });
 
+        let table_rekap_opkdg;
+        table_rekap_opkdg = $('#table-rekap_opkdg').DataTable();
+
         $('#listRekapitulasi tbody').on('click', '#btneditrecap', function() {
+            $('#table-rekap_opkdg').DataTable().destroy();
+
             let id = listRekapitulasi.row($(this).parents('tr')).data().id;
-            console.log(id);
+            let number = listRekapitulasi.row($(this).parents('tr')).data().number;
+            let date_start = listRekapitulasi.row($(this).parents('tr')).data().date_start;
+            let date_end = listRekapitulasi.row($(this).parents('tr')).data().date_end;
+            let date_created = listRekapitulasi.row($(this).parents('tr')).data().date_created;
+            let date_modified = listRekapitulasi.row($(this).parents('tr')).data().date_modified;
+
+            $('#r_number_view').val(date_created);
+            $('#d_start_view').val(date_start);
+            $('#d_end_view').val(date_end);
+            $('#d_modif_view').val(date_modified);
+            $('#modal_rekapitulasi').modal("hide");
+
+            table_rekap_opkdg = $('#table-rekap_opkdg').DataTable({
+                scrollX: true,
+                scrollY: 300,
+                scrollCollapse: true,
+                fixedColumns: {
+                    left: 1,
+                    right: 1
+                },
+                ajax: {
+                    url: '<?= base_url('Employee/load_rekap_op_kdg') ?>',
+                    type: 'POST',
+                    data: {
+                        date_start: date_start,
+                        date_end: date_end
+                    }
+                },
+                columnDefs: [{
+                        targets: 0,
+                        'data': null,
+                        render: function(data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    {
+                        targets: 1,
+                        'data': 'nup_number'
+                    },
+                    {
+                        targets: 2,
+                        'data': 'NIK'
+                    },
+                    {
+                        targets: 3,
+                        'data': 'Name'
+                    },
+                    {
+                        targets: 8,
+                        'data': 'Salary',
+                        className: 'text-center',
+                        render: function(data, type, row) {
+                            return parseFloat(data).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+                        }
+                    },
+                    {
+                        targets: 4,
+                        className: 'text-center',
+                        'data': 'days_in_month'
+                    },
+                    {
+                        targets: 5,
+                        className: 'text-center',
+                        'data': 'present'
+                    },
+                    {
+                        targets: 6,
+                        className: 'text-center',
+                        'data': null,
+                        render: function(data, type, row) {
+                            return row.days_in_month - row.present
+                        }
+                    },
+                    {
+                        targets: 7,
+                        'data': null,
+                        className: 'text-center',
+                        render: function(data, type, row) {
+                            return `<label class="btn btn-info btn-sm sum" id="btn-sum"><i class="fas fa-eye"></i></label>`
+                        }
+                    },
+                    {
+                        targets: 9,
+                        'data': null,
+                        className: 'text-center',
+                        render: function(data, type, row) {
+                            return `<input type="text" class="form-control" value="0" >`
+                        }
+                    },
+                    {
+                        targets: 10,
+                        className: 'text-center',
+                        'data': 'pot_jht',
+                        render: function(data, type, row) {
+                            return parseFloat(data).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+                        }
+                    },
+                    {
+                        targets: 11,
+                        className: 'text-center',
+                        'data': 'pot_jp',
+                        render: function(data, type, row) {
+                            return parseFloat(data).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+                        }
+                    },
+                    {
+                        targets: 12,
+                        className: 'text-center',
+                        'data': 'pot_bpjs',
+                        render: function(data, type, row) {
+                            return parseFloat(data).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+                        }
+                    },
+                    {
+                        targets: 13,
+                        'data': null,
+                        className: 'text-center',
+                        render: function(data, type, row) {
+                            return `<input type="text" class="form-control" value="0" placeholder="e.g 10.000">`
+                        }
+                    },
+                    {
+                        targets: 14,
+                        'data': null,
+                        className: 'text-center',
+                        render: function(data, type, row) {
+                            if (row.Salary > 500000) {
+                                return `<input type="text" class="form-control" value="${parseFloat(row.Salary - row.pot_jht - row.pot_jp - row.pot_bpjs).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}" disabled>`
+                            } else {
+                                return `<input type="text" class="form-control" value="${parseFloat(row.Salary * row.present).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}" disabled>`
+                            }
+
+                        }
+                    },
+                ]
+            });
+
+            setTimeout(function() {
+                table_rekap_opkdg.columns.adjust().draw();
+            }, 500);
+
+            $('#modal_view_rekapitulasi_title').text('Detail of ' + number);
+            $('#modal_view_rekapitulasi').prependTo("body").modal("show");
         });
+
+        $('#table-rekap_opkdg tbody').on('click', '#btn-sum', function() {
+            let EmployeeID = table_rekap_opkdg.row($(this).parents('tr')).data().EmployeeID;
+            let date_begin = $('#d_start_view').val();
+            let date_end = $('#d_end_view').val();
+            console.log(EmployeeID, date_begin, date_end)
+
+            $('#table_edit_header_').DataTable().destroy();
+            $('#table_edit_header_').DataTable({
+                autoWidth: false,
+                paging: false,
+                ajax: {
+                    url: '<?= base_url('Attendance/detailss') ?>',
+                    data: {
+                        EmployeeID: EmployeeID,
+                        date_begin: date_begin,
+                        date_end: date_end,
+                    },
+                    type: 'GET',
+                    dataType: 'json'
+                },
+                dom: 'Bfrtip',
+                buttons: [
+                    'csv', 'excel', 'pdf', 'print'
+                ],
+                columnDefs: [{
+                        targets: 0,
+                        'data': null,
+                        render: function(data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    {
+                        targets: 1,
+                        data: 'Name'
+                    },
+                    {
+                        targets: 2,
+                        data: 'DAY'
+                    },
+                    {
+                        targets: 3,
+                        data: 'date'
+                    },
+                    {
+                        targets: 4,
+                        data: 'time_in'
+                    },
+                    {
+                        targets: 5,
+                        data: 'time_out'
+                    },
+                    {
+                        targets: 6,
+                        data: 'total'
+                    },
+                    {
+                        targets: 7,
+                        data: 'difference'
+                    },
+                    {
+                        targets: 8,
+                        data: 'WorkHourDesc'
+                    }
+                ]
+            });
+
+            var date = new Date();
+            console.log(date.toDateString())
+            var monthh = date.getMonth() + 1;
+            date.setDate(1);
+            var all_days = [];
+            while (date.getMonth() + 1 == monthh) {
+                var d = date.getFullYear() + '-' + date.getMonth().toString().padStart(2, '0') + '-' + date.getDate().toString().padStart(2, '0');
+                all_days.push(d);
+                date.setDate(date.getDate() + 1);
+            }
+
+            $('#modal_edit_title_').text('Details from ' + EmployeeID);
+            $('#modal_edit_').appendTo("body").modal("show");
+
+        })
 
         let listRekapitulasi;
         listRekapitulasi = $('#listRekapitulasi').DataTable();
@@ -607,6 +840,10 @@
         });
 
         $('#modal_new_rekapitulasi').on('hidden.bs.modal', function() {
+            $('#modal_rekapitulasi').prependTo("body").modal("show");
+        });
+
+        $('#modal_view_rekapitulasi').on('hidden.bs.modal', function() {
             $('#modal_rekapitulasi').prependTo("body").modal("show");
         });
 
@@ -629,6 +866,7 @@
                 )
             } else if (date_start.val() == "") {
                 Swal.fire(
+
                     'Warning!',
                     "Please input begin date",
                     "warning"

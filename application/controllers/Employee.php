@@ -52,6 +52,13 @@ class Employee extends CI_Controller
         $this->load->view('employee/salaryaddon');
         $this->load->view('template/footer');
     }
+    public function lembur()
+    {
+        $data['employ'] = $this->Employee_m->list_emp();
+        $this->load->view('template/header');
+        $this->load->view('spl/form', $data);
+        $this->load->view('template/footer');
+    }
 
     public function getDatas()
     {
@@ -161,5 +168,14 @@ class Employee extends CI_Controller
     {
         $id = $this->input->post('id');
         $this->Employee_m->del_m_recap($id);
+    }
+
+    public function load_rekap_op_kdg()
+    {
+        $date_start = $this->input->post('date_start');
+        $date_end = $this->input->post('date_end');
+
+        $result['data'] = $this->Employee_m->rekap_op_kdg($date_start, $date_end);
+        echo json_encode($result);
     }
 }

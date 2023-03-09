@@ -1,6 +1,7 @@
 <style>
     table th {
         text-align: center;
+        vertical-align: middle;
     }
 </style>
 <!-- start page title -->
@@ -347,7 +348,7 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <label for="r_number">Recapitulation Number:</label>
-                        <input class="form-control" type="text" name="r_number" id="r_number" value="<?= $no ?>" readonly required>
+                        <input class="form-control" type="text" name="r_number" id="r_number" value="" readonly required>
                     </div>
                     <div class="col-lg-4">
                         <label for="d_start">Date Start:</label>
@@ -367,5 +368,122 @@
     </div>
 </div>
 <!--End Modal Create Rekapitulasi-->
+
+<!-- Modal Create Rekapitulasi-->
+<div class="modal fade" id="modal_view_rekapitulasi" tabindex="-1" aria-labelledby="modal_new_rekapitulasi" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal_view_rekapitulasi_title"></h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <label for="d_start">Date Start:</label>
+                        <input class="form-control" type="text" name="d_start" id="d_start_view" readonly>
+                    </div>
+                    <div class="col-lg-3">
+                        <label for="d_end">Date End:</label>
+                        <input class="form-control" type="text" name="d_end" id="d_end_view" readonly>
+                    </div>
+                    <div class="col-lg-3">
+                        <label for="r_number_view">Calculated At:</label>
+                        <input class="form-control" type="text" name="r_number_view" id="r_number_view" value="<?= $no ?>" readonly>
+                    </div>
+                    <div class="col-lg-3">
+                        <label for="d_modif_view">Last Modified:</label>
+                        <input class="form-control" type="text" name="d_modif_view" id="d_modif_view" value="<?= $no ?>" readonly>
+                    </div>
+                    <div class="col-lg-12 mt-4">
+                        <table class="table table-hover" id="table-rekap_opkdg" style="width:200%">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" rowspan="2">No.</th>
+                                    <th rowspan="2" class="text-center">NUP</th>
+                                    <th rowspan="2" class="text-center">NIK</th>
+                                    <th rowspan="2" class="text-center">Name</th>
+                                    <th rowspan="2" class="text-center">HK</th>
+                                    <th rowspan="2" class="text-center">MK</th>
+                                    <th rowspan="2" class="text-center">SSLB</th>
+                                    <th rowspan="2" class="text-center">Details</th>
+                                    <th colspan="2" class="text-center">Allowances (Rp.)</th>
+                                    <th colspan="4" class="text-center">Deductions (Rp.)</th>
+                                    <th class="text-center" rowspan="2">Total (Rp.)</th>
+                                </tr>
+                                <tr>
+                                    <th class="text-center">Ump</th>
+                                    <th class="text-center">Overtime</th>
+                                    <th class="text-center">JHT</th>
+                                    <th class="text-center">JP</th>
+                                    <th class="text-center">BPJS</th>
+                                    <th class="text-center">Absen</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-close-new" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" id="btn-view-recap" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Modal Create Rekapitulasi-->
+
+<!-- Modal Edit -->
+<div class="modal fade" id="modal_edit_">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div id="modal-header" class="modal-header">
+                <h2 class="modal-title" id="modal_edit_title_"></h2>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12" style="overflow:auto;">
+                        <table class="table table-hover" id="table_edit_header_">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Name</th>
+                                    <th>Day</th>
+                                    <th>Date</th>
+                                    <th>In Time</th>
+                                    <th>Out Time</th>
+                                    <th>Work Hours Total</th>
+                                    <th>Difference</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Name</th>
+                                    <th>Day</th>
+                                    <th>Date</th>
+                                    <th>In Time</th>
+                                    <th>Out Time</th>
+                                    <th>Work Hours Total</th>
+                                    <th>Difference</th>
+                                    <th>Status</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" id="dateModal">
+                <input type="hidden" id="id_mform">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal Edit -->
 
 <?php include APPPATH . 'views/employee/script.php' ?>

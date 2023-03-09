@@ -137,20 +137,16 @@
                                     </li>
                                 </ul>
                             </li>
-
-                            <li>
-                                <a href="#">Report</a>
-                            </li>
                         </ul>
                     </li>
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class="mdi mdi-notebook-edit-outline"></i>
-                            <span>SPL</span>
+                            <span>Overtime</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
                             <li>
-                                <a href="#" id='attBtn'>
+                                <a href="<?= base_url('Employee/lembur') ?>" id='attBtn'>
                                     <span>Form</span>
                                 </a>
                             </li>
