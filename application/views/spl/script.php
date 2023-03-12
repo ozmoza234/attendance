@@ -1,5 +1,12 @@
 <script>
     $(document).ready(function() {
+        $('#employee-nup').select2({
+            theme: 'bootstrap-5',
+            dropdownParent: $("#modal_edit_nup"),
+            width: '100%',
+
+        });
+
         $('#r_number').mask('000/AAA/AAA-AA/AAA/0000');
         $('#hour').mask('000.000.000', {
             reverse: true
@@ -12,6 +19,13 @@
         $('#btn_new_rekapitulasi').on('click', function() {
             $('#modal_new_rekapitulasi_title').text('Create New Form');
             $('#modal_new_rekapitulasi').prependTo("body").modal("show");
+        });
+
+        $('#modal_new_rekapitulasi').on('hidden.bs.modal', function() {
+            $('#r_number').val("");
+            $('#d_start').val("");
+            $('#hour').val("");
+            $('#d_end').val("");
         });
 
         $('#vertical-menu-btn').on('click', function() {
@@ -28,55 +42,15 @@
             let no = listRekapitulasi.row($(this).parents('tr')).data().number;
             let status = listRekapitulasi.row($(this).parents('tr')).data().status;
 
-            tableEmployeeNup = $('#tableEmployeeNup').DataTable({
-                autowidth: false,
-                destroy: true,
-                ajax: {
-                    url: '<?= base_url('Spl/load_spl_to_emp') ?>',
-                    dataType: 'json',
-                    data: {
-                        id: id
-                    },
-                    type: 'GET'
-                },
-                columnDefs: [{
-                        targets: 0,
-                        data: null,
-                        className: 'text-center',
-                        render: function(data, type, row, meta) {
-                            return meta.row + meta.settings._iDisplayStart + 1;
-                        }
-                    },
-                    {
-                        targets: 1,
-                        data: 'NIK'
-                    },
-                    {
-                        targets: 2,
-                        data: 'Name'
-                    },
-                    {
-                        targets: 3,
-                        data: 'GroupDesc'
-                    },
-                    {
-                        targets: 4,
-                        data: null,
-                        className: 'text-center',
-                        render: function(type, data, row) {
-                            return `<label class='btn btn-danger btn-sm' id="btndeleteemp"><i class="fas fa-times"></i></label>`
-                        }
-                    },
-                ]
-            });
+            if (status == "0") {
+                btn_d(id, no);
+            } else if (status == "1") {
 
-            setTimeout(function() {
-                tableEmployeeNup.columns.adjust().draw();
-            }, 500);
+            } else if (status == "2") {
 
-            $('#idNup').val(id);
-            $('#modal_edit_nup_Label').text('Detail of ' + no);
-            $('#modal_edit_nup').prependTo("body").modal("show");
+            } else {
+
+            };
         });
 
         let listRekapitulasi;
@@ -139,6 +113,16 @@
                 },
                 {
                     targets: 7,
+                    'data': 'remarks_app1',
+                    className: 'text-center'
+                },
+                {
+                    targets: 8,
+                    'data': 'date_app_1',
+                    className: 'text-center'
+                },
+                {
+                    targets: 9,
                     'data': 'status',
                     className: 'text-center',
                     render: function(data, type, row) {
@@ -152,11 +136,15 @@
                     }
                 },
                 {
-                    targets: 8,
+                    targets: 10,
                     'data': null,
                     className: 'text-center',
                     render: function(data, type, row) {
-                        return `<button class="btn btn-primary btn-sm" id="btn_d"><i class="mdi mdi-calendar-search"></i></button>  <button class="btn btn-danger btn-sm" id="btn_del"><i class="mdi mdi-trash-can-outline"></i></button>`
+                        if (row.status == 1) {
+                            return `<button class="btn btn-primary btn-sm" id="btn_d"><i class="mdi mdi-calendar-search"></i></button>`
+                        } else {
+                            return `<button class="btn btn-primary btn-sm" id="btn_d"><i class="mdi mdi-calendar-search"></i></button>  <button class="btn btn-danger btn-sm" id="btn_del"><i class="mdi mdi-trash-can-outline"></i></button>`
+                        }
                     }
                 },
             ]
@@ -234,7 +222,7 @@
                 dataType: 'json',
                 type: 'GET',
             }).done(function(data) {
-                $('#name-nup-employee').val(data[0].ename);
+                // $('#name-nup-employee').val(data[0].ename);
                 $('#group-nup-employee').val(data[0].GroupDesc);
             });
         });
@@ -265,7 +253,7 @@
                         tableEmployeeNup.ajax.reload();
                         listRekapitulasi.ajax.reload();
                         $('#employee-nup').val("");
-                        $('#name-nup-employee').val("");
+                        // $('#name-nup-employee').val("");
                         $('#group-nup-employee').val("");
                     })
                 }
@@ -301,6 +289,57 @@
             })
         });
 
+        function btn_d(id, no) {
+            tableEmployeeNup = $('#tableEmployeeNup').DataTable({
+                autowidth: false,
+                destroy: true,
+                ajax: {
+                    url: '<?= base_url('Spl/load_spl_to_emp') ?>',
+                    dataType: 'json',
+                    data: {
+                        id: id
+                    },
+                    type: 'GET'
+                },
+                columnDefs: [{
+                        targets: 0,
+                        data: null,
+                        className: 'text-center',
+                        render: function(data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    {
+                        targets: 1,
+                        data: 'NIK'
+                    },
+                    {
+                        targets: 2,
+                        data: 'Name'
+                    },
+                    {
+                        targets: 3,
+                        data: 'GroupDesc'
+                    },
+                    {
+                        targets: 4,
+                        data: null,
+                        className: 'text-center',
+                        render: function(type, data, row) {
+                            return `<label class='btn btn-danger btn-sm' id="btndeleteemp"><i class="fas fa-times"></i></label>`
+                        }
+                    },
+                ]
+            });
+
+            setTimeout(function() {
+                tableEmployeeNup.columns.adjust().draw();
+            }, 500);
+
+            $('#idNup').val(id);
+            $('#modal_edit_nup_Label').text('Detail of ' + no);
+            $('#modal_edit_nup').prependTo("body").modal("show");
+        }
 
     })
 </script>

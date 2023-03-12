@@ -30,7 +30,9 @@
                             <th>Total (Rp.)</th>
                             <th>Date Created</th>
                             <th>Remarks</th>
-                            <th>Approval</th>
+                            <th>Approval 1</th>
+                            <th>Remarks App1</th>
+                            <th>Date App1</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -53,19 +55,19 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <label for="r_number">Overtime Form Number:</label>
                         <input class="form-control" type="text" name="r_number" id="r_number" value="" placeholder="e.g. 002/LOG/RHB-U5/MAR/2023" required>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
                         <label for="d_start">Date:</label>
                         <input class="form-control" type="date" name="d_start" id="d_start" required>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
                         <label for="hour">Total (Rp.):</label>
                         <input class="form-control" type="text" name="hour" id="hour" placeholder="e.g. 10.000" required>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 mt-3">
                         <label for="d_end">Remarks:</label>
                         <input class="form-control" type="text" name="d_end" id="d_end" placeholder="e.g. Very Important" required>
                     </div>
@@ -98,7 +100,7 @@
                             <thead>
                                 <tr>
                                     <th>NIK</th>
-                                    <th>Name</th>
+                                    <!-- <th>Name</th> -->
                                     <th>Group</th>
                                     <th>Save</th>
                                 </tr>
@@ -107,21 +109,21 @@
                                 <tr>
                                     <td>
                                         <select name="employee-nup" id="employee-nup" class="form-control">
-                                            <option value="" class="text-center">-- Select --</option>
+                                            <option value="" class="text-center">Select Employee</option>
                                             <?php foreach ($employ->result() as $kry) { ?>
-                                                <option value="<?= $kry->EmployeeID ?>"><?= $kry->NIK ?></option>
+                                                <option value="<?= $kry->EmployeeID ?>"><?= $kry->NIK ?> | <?= $kry->Name ?></option>
                                             <?php } ?>
                                         </select>
                                     </td>
-                                    <td>
+                                    <!-- <td>
                                         <input class="form-control" type="text" id="name-nup-employee" readonly>
-                                    </td>
+                                    </td> -->
                                     <td>
                                         <input class="form-control" type="text" id="group-nup-employee" readonly>
                                     </td>
                                     <td>
                                         <input type="hidden" id="idNup">
-                                        <button class="btn btn-primary" id="saveOptNup"><i class="fas fa-save"></i></button>
+                                        <button class="btn btn-primary text-center" id="saveOptNup"><i class="fas fa-save"></i></button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -150,6 +152,4 @@
     </div>
 </div>
 <!-- End of Modal Edit NUP -->
-
-
 <?php include APPPATH . 'views/spl/script.php' ?>

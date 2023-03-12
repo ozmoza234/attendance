@@ -32,6 +32,50 @@ class Employee extends CI_Controller
 
     public function op_kandang()
     {
+        function getRomawi($bln)
+        {
+            switch ($bln) {
+                case 1:
+                    return "I";
+                    break;
+                case 2:
+                    return "II";
+                    break;
+                case 3:
+                    return "III";
+                    break;
+                case 4:
+                    return "IV";
+                    break;
+                case 5:
+                    return "V";
+                    break;
+                case 6:
+                    return "VI";
+                    break;
+                case 7:
+                    return "VII";
+                    break;
+                case 8:
+                    return "VIII";
+                    break;
+                case 9:
+                    return "IX";
+                    break;
+                case 10:
+                    return "X";
+                    break;
+                case 11:
+                    return "XI";
+                    break;
+                case 12:
+                    return "XII";
+                    break;
+            }
+        }
+        $m = date('n');
+        $y = date('Y');
+        $rm = getRomawi($m);
         $data['listump'] = $this->Ump_m->load_eedata();
         $data['listptkp'] = $this->Ump_m->load_ptdata();
         // $data['lustopkandang'] = $this->Ump_m->list_op_kandang();
@@ -40,7 +84,7 @@ class Employee extends CI_Controller
         $p = $no + 1;
         $c = sprintf("%03s", $p);
         $no_voc = $c;
-        $data['no'] = 'RECAP/' . $no_voc;
+        $data['no'] = $no_voc . '/RECAP/' . $rm . '/' . $y;
         $this->load->view('template/header');
         $this->load->view('employee/opkandanglist', $data);
         $this->load->view('template/footer');
@@ -52,11 +96,19 @@ class Employee extends CI_Controller
         $this->load->view('employee/salaryaddon');
         $this->load->view('template/footer');
     }
+
     public function lembur()
+    {
+        $this->load->view('template/header');
+        $this->load->view('spl/form');
+        $this->load->view('template/footer');
+    }
+
+    public function approval()
     {
         $data['employ'] = $this->Employee_m->list_emp();
         $this->load->view('template/header');
-        $this->load->view('spl/form', $data);
+        $this->load->view('spl/approval', $data);
         $this->load->view('template/footer');
     }
 

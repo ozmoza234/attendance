@@ -25,6 +25,8 @@
     <link href="<?= base_url() ?>assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url() ?>assets/libs/datatables.net-select-bs4/css//select.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
 </head>
 
 <body data-topbar="light">
@@ -151,7 +153,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#">Approval</a>
+                                <a href="<?= base_url('Employee/approval') ?>">Approval</a>
                             </li>
                         </ul>
                     </li>
@@ -194,6 +196,8 @@
     <script src="<?= base_url() ?>assets/js/sweetalert2.all.min.js"></script>
 
     <script src="<?= base_url() ?>assets/js/jquery.mask.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <!-- Custom Scripts -->
     <script>

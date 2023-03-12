@@ -31,6 +31,7 @@
             // }],
             columnDefs: [{
                     targets: 0,
+                    className: 'text-center',
                     'data': null,
                     render: function(data, type, row, meta) {
                         return meta.row + meta.settings._iDisplayStart + 1;
@@ -63,6 +64,7 @@
                 {
                     targets: 7,
                     'data': null,
+                    className: 'text-center',
                     render: function(data, type, row) {
                         return `<button class="btn btn-primary btn-sm" id="btn_d"><i class="mdi mdi-calendar-search"></i></button>`
                     }
@@ -634,6 +636,7 @@
                 columnDefs: [{
                         targets: 0,
                         'data': null,
+                        className: 'text-center',
                         render: function(data, type, row, meta) {
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
@@ -686,10 +689,15 @@
                     },
                     {
                         targets: 9,
-                        'data': null,
+                        'data': 'lembur',
                         className: 'text-center',
                         render: function(data, type, row) {
-                            return `<input type="text" class="form-control" value="0" >`
+                            if (data == null) {
+                                return `<input type="number" class="form-control" value="0" disabled>`
+                            } else {
+                                return `<input type="text" class="form-control" value="${parseFloat(data).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}" disabled>`
+                            }
+
                         }
                     },
                     {
@@ -697,7 +705,11 @@
                         className: 'text-center',
                         'data': 'pot_jht',
                         render: function(data, type, row) {
-                            return parseFloat(data).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+                            if (data == 0) {
+                                return 0
+                            } else {
+                                return parseFloat(data).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+                            }
                         }
                     },
                     {
@@ -705,7 +717,11 @@
                         className: 'text-center',
                         'data': 'pot_jp',
                         render: function(data, type, row) {
-                            return parseFloat(data).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+                            if (data == 0) {
+                                return 0
+                            } else {
+                                return parseFloat(data).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+                            }
                         }
                     },
                     {
@@ -713,36 +729,107 @@
                         className: 'text-center',
                         'data': 'pot_bpjs',
                         render: function(data, type, row) {
-                            return parseFloat(data).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+                            if (data == 0) {
+                                return 0
+                            } else {
+                                return parseFloat(data).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+                            }
+
                         }
                     },
                     {
                         targets: 13,
                         'data': null,
                         className: 'text-center',
-                        render: function(data, type, row) {
-                            return `<input type="text" class="form-control" value="0" placeholder="e.g 10.000">`
+                        render: function(data, type, row, meta) {
+                            return `<input type="text" class="form-control" value="0" id="pot_tidak_masuk${meta.row + meta.settings._iDisplayStart + 1}" placeholder="e.g 10.000">`
                         }
                     },
                     {
                         targets: 14,
                         'data': null,
                         className: 'text-center',
-                        render: function(data, type, row) {
+                        render: function(data, type, row, meta) {
                             if (row.Salary > 500000) {
-                                return `<input type="text" class="form-control" value="${parseFloat(row.Salary - row.pot_jht - row.pot_jp - row.pot_bpjs).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}" disabled>`
+                                if (row.lembur == null) {
+                                    return `<input type="text" id="total${meta.row + meta.settings._iDisplayStart + 1}" class="form-control total" value="${parseFloat(row.Salary - row.pot_jht - row.pot_jp - row.pot_bpjs).toFixed(2)}" disabled> <input type="hidden" id="default${meta.row + meta.settings._iDisplayStart + 1}" class="form-control default" value="${parseFloat(row.Salary - row.pot_jht - row.pot_jp - row.pot_bpjs).toFixed(2)}" disabled>`
+                                } else {
+                                    return `<input type="text" id="total${meta.row + meta.settings._iDisplayStart + 1}" class="form-control total" value="${parseFloat(row.Salary - row.pot_jht - row.pot_jp - row.pot_bpjs + parseInt(row.lembur)).toFixed(2)}" disabled> <input type="hidden" id="default${meta.row + meta.settings._iDisplayStart + 1}" class="form-control default" value="${parseFloat(row.Salary - row.pot_jht - row.pot_jp - row.pot_bpjs + parseInt(row.lembur)).toFixed(2)}" disabled>`
+                                }
+
                             } else {
-                                return `<input type="text" class="form-control" value="${parseFloat(row.Salary * row.present).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}" disabled>`
+                                if (row.Salary * row.present == 0) {
+                                    return `<input type="text" id="total${meta.row + meta.settings._iDisplayStart + 1}" class="form-control" value="0" disabled> <input type="hidden" id="default${meta.row + meta.settings._iDisplayStart + 1}" class="form-control default" value="0" disabled>`
+                                } else {
+                                    return `<input type="text" id="total${meta.row + meta.settings._iDisplayStart + 1}" class="form-control total" value="${parseFloat(row.Salary * row.present).toFixed(2)}" disabled> <input type="hidden" id="default${meta.row + meta.settings._iDisplayStart + 1}" class="form-control default" value="${parseFloat(row.Salary * row.present).toFixed(2)}" disabled>`
+                                }
+
                             }
 
                         }
                     },
-                ]
-            });
+                ],
+                initComplete: function() {
+                    const inputFieldNumber = document.querySelectorAll('input[type=text]');
 
-            setTimeout(function() {
-                table_rekap_opkdg.columns.adjust().draw();
-            }, 500);
+                    inputFieldNumber.forEach(function(input) {
+                        input.addEventListener('keyup', function(e) {
+                            if (e.target.value == '') {
+                                e.target.value = '0'
+                            }
+                        })
+                    });
+                    let data = table_rekap_opkdg.rows().data().toArray();
+                    let increment = 0;
+                    $.each(data, function(i, item) {
+                        increment++
+                        let b_total = parseInt($(`#total${increment}`).val());
+                        $(`#total${increment}`).val(b_total);
+                        let total = $(`#total${increment}`).val()
+                        $(`#total${increment}`).mask('000.000.000', {
+                            reverse: true
+                        });
+                        $(`#pot_tidak_masuk${increment}`).mask('000.000.000', {
+                            reverse: true
+                        });
+                        $(`#total${increment}`).masked(total);
+                        $(`#pot_tidak_masuk${increment}`).on('keyup', function() {
+                            let input = parseInt($(this).cleanVal());
+                            let idSelisih = $(this).closest('tr').find('.total').attr('id');
+                            $(`#${idSelisih}`).mask('000.000.000', {
+                                reverse: true
+                            });
+                            let idDefault = $(this).closest('tr').find('.default').attr('id');
+                            let tgtt = parseInt($(`#${idSelisih}`).val());
+                            let tgt = parseInt($(`#${idSelisih}`).cleanVal());
+                            const oriTgt = parseInt($(`#${idDefault}`).val());
+                            let rumus = oriTgt - input;
+                            if (input == 0) {
+                                $(`#${idSelisih}`).val(oriTgt);
+                                let total1 = $(`#${idSelisih}`).val()
+                                let valMask = $(`#${idSelisih}`).masked(total1);
+                                let negative = '-' + valMask;
+                                if (total1 < 0) {
+                                    $(`#${idSelisih}`).val(negative);
+                                } else {
+                                    $(`#${idSelisih}`).val(valMask);
+                                }
+                            } else {
+                                $(`#${idSelisih}`).val(rumus);
+                                let total1 = $(`#${idSelisih}`).val()
+                                let valMask = $(`#${idSelisih}`).masked(total1);
+                                let negative = '-' + valMask;
+                                if (total1 < 0) {
+                                    $(`#${idSelisih}`).val(negative);
+                                } else {
+                                    $(`#${idSelisih}`).val(valMask);
+                                }
+                            }
+                        });
+                    });
+                    table_rekap_opkdg.columns.adjust().draw();
+                },
+            });
 
             $('#modal_view_rekapitulasi_title').text('Detail of ' + number);
             $('#modal_view_rekapitulasi').prependTo("body").modal("show");

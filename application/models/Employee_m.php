@@ -286,43 +286,58 @@ class Employee_m extends ci_model
     {
         $data = "SELECT
         nuprhb.nup_number,
-        emp0003.`Name`,
-        emp0003.EmployeeID,
-        emp0003.NIK,
+        t3.`Name`,
+        t3.EmployeeID,
+        t3.NIK,
         emp0008.Salary,
+        (
+        SELECT
+            spl.`hour` 
+        FROM
+            splemp
+            LEFT JOIN spl ON splemp.id_spl = spl.id
+            LEFT JOIN emp0003 ON splemp.id_emp = emp0003.EmployeeID 
+        WHERE
+            -- splemp.id_spl = 7 
+            spl.date BETWEEN '$date_start' 
+            AND '$date_end' 
+            AND spl.approval_1 = 1 
+            AND spl.`status` = 1 
+            AND splemp.id_emp = t3.EmployeeID
+        ) lembur,
         (
         SELECT
             COUNT( DISTINCT DATE( dvc0004.Enroll ) ) 
         FROM
             dvc0004 
         WHERE
-            dvc0004.EmpID = emp0003.EmployeeID 
+            dvc0004.EmpID = t3.EmployeeID 
             AND DATE ( dvc0004.Enroll ) BETWEEN '$date_start' 
             AND '$date_end' 
         ) present,
-        DATEDIFF('$date_end' , '$date_start') AS days_in_month,
-        CASE
-		
-                WHEN emp0008.Pot_Bpjs_TK = 'T' THEN
-                emp0008.Salary * 0.02 ELSE 0 
-            END AS pot_jht,
-        CASE
-                
-                WHEN emp0008.Pot_Bpjs_TK = 'T' THEN
-                emp0008.Salary * 0.01 ELSE 0 
-            END AS pot_jp,
-        CASE
-                
-                WHEN emp0008.Pot_Bpjs_TK = 'T' THEN
-                emp0008.Salary * 0.01 ELSE 0 
-            END AS pot_bpjs
-        FROM
-            nupemployee
-            LEFT JOIN nuprhb ON nuprhb.id = nupemployee.id_nup
-            LEFT JOIN emp0003 ON nupemployee.id_employee = emp0003.EmployeeID
-            LEFT JOIN emp0008 ON emp0008.EmployeeID = emp0003.EmployeeID 
-        WHERE
-            nuprhb.is_active = 1";
+        DATEDIFF( '$date_end', '$date_start' ) AS days_in_month,
+    CASE
+            
+            WHEN emp0008.Pot_Bpjs_TK = 'T' THEN
+            emp0008.Salary * 0.02 ELSE 0 
+        END AS pot_jht,
+    CASE
+            
+            WHEN emp0008.Pot_Bpjs_TK = 'T' THEN
+            emp0008.Salary * 0.01 ELSE 0 
+        END AS pot_jp,
+    CASE
+            
+            WHEN emp0008.Pot_Bpjs_TK = 'T' THEN
+            emp0008.Salary * 0.01 ELSE 0 
+        END AS pot_bpjs 
+    FROM
+        nupemployee
+        LEFT JOIN nuprhb ON nuprhb.id = nupemployee.id_nup
+        LEFT JOIN emp0003 t3 ON nupemployee.id_employee = t3.EmployeeID
+        LEFT JOIN emp0008 ON emp0008.EmployeeID = t3.EmployeeID 
+    WHERE
+        nuprhb.is_active = 1";
         $query = $this->db->query($data);
         return $query->result();
     }

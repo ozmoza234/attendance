@@ -17,12 +17,12 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-title text-center" style="margin-top:5%;">
-                <h4 class="mb-sm-0">List</h4>
+            <div class="card-title mt-3 mx-3">
+                <button class="btn btn-outline-primary" id="btn-nup" style="margin-bottom:1%;"><i class="fas fa-list-ol"></i> NUP</button>
+                <button class="btn btn-outline-primary" id="btn-rekapitulasi" style="margin-bottom:1%;"><i class="fas fa-list-ol"></i> Recapitulation</button>
+                <h4 class="mb-sm-0  text-center">List</h4>
             </div>
             <div class="card-body p-4">
-                <button class="btn btn-primary btn-sm" id="btn-nup" style="margin-bottom:1%;"><i class="fas fa-list-ol"></i> NUP</button>
-                <button class="btn btn-primary btn-sm" id="btn-rekapitulasi" style="margin-bottom:1%;"><i class="fas fa-list-ol"></i> Recapitulation</button>
                 <table id="tableUser" class="table activate-select dt-responsive nowrap w-100">
                     <thead>
                         <tr>
@@ -259,7 +259,7 @@
                                     <td>
                                         <input class="form-control" type="text" id="group-nup-employee" readonly>
                                     </td>
-                                    <td>
+                                    <td class="text-center">
                                         <button class="btn btn-primary" id="saveOptNup"><i class="fas fa-save"></i></button>
                                     </td>
                                 </tr>
@@ -348,7 +348,7 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <label for="r_number">Recapitulation Number:</label>
-                        <input class="form-control" type="text" name="r_number" id="r_number" value="" readonly required>
+                        <input class="form-control" type="text" name="r_number" id="r_number" value="<?= $no ?>" readonly required>
                     </div>
                     <div class="col-lg-4">
                         <label for="d_start">Date Start:</label>
